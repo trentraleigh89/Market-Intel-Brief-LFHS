@@ -1397,31 +1397,30 @@ function IntelBrief() {
             grid-template-columns: 1fr; gap: 10px;
           }
           .tile-grid-1 > *, .tile-grid-5 > * { grid-column: auto; max-width: none; }
-          .tile-outer, .tile-inner, .tile-face { height: auto !important; min-height: 320px !important; overflow: visible !important; }
+          .tile-outer, .tile-inner, .tile-face { height: auto !important; min-height: 0 !important; overflow: visible !important; }
           .tile-context { -webkit-line-clamp: unset; display: block; }
           .tile-back-clamp { -webkit-line-clamp: unset; display: block; }
         }
 
-        /* Tile shell — fixed height for visual consistency across the grid.
-           Context is line-clamped to fit; if longer, it truncates with ellipsis
-           and reps can read the full article via "Read Article" button. */
+        /* Tile shell — content-driven height with same-row equalization via CSS Grid.
+           Cards in the same row stretch to match the tallest card in that row,
+           but rows do not pad to a fixed minimum, so dead space is eliminated. */
         .tile-outer {
           perspective: 1600px;
-          height: 460px;
           position: relative;
           cursor: pointer;
+          min-height: 320px; /* sane floor so very short cards still feel like cards, not chips */
         }
         .tile-inner {
           position: relative;
           width: 100%;
-          height: 460px;
+          height: 100%;
           transform-style: preserve-3d;
           transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
         }
         .tile-face {
           -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-          height: 460px;
           overflow: hidden;
         }
         /* Headline clamp — caps at 3 lines so cards with very long headlines do not push everything else around. */
@@ -1431,19 +1430,15 @@ function IntelBrief() {
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
-          min-height: 3.9em;
         }
         /* Context line-clamp — caps at 6 lines (~65 words) and trails with an ellipsis.
-           The full story is reachable via Read Article. min-height ensures all cards
-           reserve the same vertical space even if their content is shorter than 6 lines,
-           so the Source/Buttons row aligns across the grid. */
+           No min-height; the card grows to fit the actual content length. */
         .tile-context {
           display: -webkit-box;
           -webkit-line-clamp: 6;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
-          min-height: 7.45em; /* ≈ 6 lines × 1.55 line-height × 0.8 vertical-baseline */
         }
         /* Back-face context (Competitive Implication / Conversation Starter) gets more room
            since back face is what reps actually use. Allow 8 lines. */
@@ -1463,6 +1458,7 @@ function IntelBrief() {
           position: absolute;
           inset: 0;
           transform: rotateY(180deg);
+          overflow-y: auto; /* if back content is taller than front, allow scroll rather than crop */
         }
         .tile-outer:hover .tile-face:not(.tile-back) {
           box-shadow: 0 4px 14px rgba(20,21,26,0.08);
