@@ -169,6 +169,20 @@ const Trash2 = (p) => _Icon({...p, children: [
   _path('M14 11v6'),
 ]});
 
+const Trophy = (p) => _Icon({...p, children: [
+  _path('M6 9H4.5a2.5 2.5 0 0 1 0-5H6'),
+  _path('M18 9h1.5a2.5 2.5 0 0 0 0-5H18'),
+  _path('M4 22h16'),
+  _path('M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'),
+  _path('M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'),
+  _path('M18 2H6v7a6 6 0 0 0 12 0V2Z'),
+]});
+
+const ArrowRight = (p) => _Icon({...p, children: [
+  _path('M5 12h14'),
+  _path('m12 5 7 7-7 7'),
+]});
+
 
 
 
@@ -425,6 +439,7 @@ const BRIEFS_BY_REGION = {
         {
           headline: 'Michigan State opens $200M Student Recreation and Wellness Center — 293,000 sq ft, opened April 21',
           tags: ['BOND-FUNDED', 'GROWTH'],
+          outcome: 'won',
           context: 'Michigan State University officially opened its $200M Student Recreation and Wellness Center on April 21, 2026, replacing the 1959-built IM West facility. The 293,000 sq ft facility features multi-activity courts, indoor track, two basketball arenas, six multipurpose fitness studios, climbing wall, combat sports room, and a 50-meter pool. Funded through a student recreation fee instituted in 2021. IM West will close April 25; its pool remains open until spring 2027 while the new facility\u2019s natatorium completes.',
           implication: 'MSU is the largest campus rec opening of Q2 2026 and will set the comparative benchmark Big Ten peer institutions are measured against. Reps covering Big Ten schools should arrange MSU facility tours for their athletic directors and rec services leadership — peer site visits are how spec conversations escalate from interest to RFP. The opening also creates sustained referenceable case study content for marketing and proposals.',
           conversation: 'MSU just opened a $200M campus rec facility that\u2019s going to be the Big Ten reference point for the next decade. Your peer institutions are going to want to tour it. Let me help you organize that for your rec services director — getting them to walk the floor at MSU is the fastest path to spec-level conversations on your own campus.',
@@ -434,6 +449,7 @@ const BRIEFS_BY_REGION = {
         {
           headline: 'University of Michigan Hadley Family Recreation & Well-Being Center targets Spring 2026 opening — $165M, 3-year build',
           tags: ['BOND-FUNDED', 'DESIGN'],
+          outcome: 'won',
           context: 'University of Michigan\u2019s Hadley Family Recreation & Well-Being Center is finishing construction toward a Spring 2026 opening. The $165M facility replaces the demolished 401 Washtenaw Central Campus Recreation Building (closed December 2022). Project includes a $20M naming gift from the Hadley family. Temporary fabric-structure facility on Palmer Field has served students throughout construction. Big Ten campus rec capital cycle is mid-wave, with Hadley joining MSU and Pitt as marquee 2026 openings.',
           implication: 'Hadley\u2019s opening within weeks of MSU\u2019s creates a clustered Big Ten opening cycle that will dominate campus rec association discussions through 2026. Reps should monitor the NIRSA conference content calendar and association events — peer benchmarking conversations between Big Ten schools accelerate at these touchpoints. Kentucky Johnson Center expansion (60-foot climbing wall, outdoor lifting) finishes end of 2026, completing the cycle.',
           conversation: 'The Big Ten campus rec opening wave (MSU April, Michigan Hadley Spring, Pittsburgh recent, Kentucky end of year) creates clustered peer-benchmark moments at NIRSA and association events. Let me help you build the conversation arc around these openings so your rec services contacts position their next capex with that peer context in mind.',
@@ -969,18 +985,42 @@ function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, on
   const isBookmarked = !!bookmarked;
   const ratingValue = rating || null;
 
+  // V2 win/pursuit ribbon flagging
+  const outcome = insight.outcome; // 'won' | 'pursuit' | undefined
+  const isFlagged = outcome === 'won' || outcome === 'pursuit';
+  const isWin = outcome === 'won';
+  const flagColor = isWin ? '#C41230' : '#1F7A4D';
+  const flagLabel = isWin ? 'LF/HS WIN' : 'LF/HS IN-PURSUIT';
+  const FlagIcon = isWin ? Trophy : ArrowRight;
+
   return (
     <div className="tile-outer" onClick={() => setFlipped(f => !f)}>
       <div className="tile-inner" style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
         {/* FRONT */}
-        <div className="tile-face tile-front" style={{
-          background: C.surface, border: `1px solid ${C.border}`,
-          borderTop: `3px solid ${C.red}`, borderRadius: 8,
-          padding: '16px 18px 14px',
+        <div className={`tile-face tile-front${isFlagged ? (isWin ? ' tile-flagged tile-flagged-win' : ' tile-flagged tile-flagged-pursuit') : ''}`} style={{
+          background: C.surface,
+          border: isFlagged ? `1.5px solid ${flagColor}` : `1px solid ${C.border}`,
+          borderTop: isFlagged ? `1.5px solid ${flagColor}` : `3px solid ${C.red}`,
+          borderRadius: 8,
+          padding: isFlagged ? '50px 18px 14px' : '16px 18px 14px',
           display: 'flex', flexDirection: 'column', gap: 10,
           boxShadow: '0 1px 2px rgba(20,21,26,0.04)',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
+          {/* WIN/PURSUIT RIBBON — only renders when outcome is set */}
+          {isFlagged && (
+            <div className="tile-ribbon" aria-label={flagLabel}>
+              <span className="tile-ribbon-label">
+                <FlagIcon size={14} strokeWidth={2.5} />
+                {flagLabel}
+              </span>
+              <div className="tile-ribbon-tags">
+                {insight.tags.map((t, i) => (
+                  <span key={i} className="tile-ribbon-tag">{t}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="tile-tags-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', flex: 1 }}>
               {weekBadge && (
                 <span style={{
@@ -1011,6 +1051,7 @@ function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, on
           <h3 className="tile-headline" style={{
             margin: 0, fontSize: 15.5, lineHeight: 1.35, fontWeight: 700,
             color: C.ink, letterSpacing: '-0.005em',
+            paddingRight: 36,
           }}>{insight.headline}</h3>
           <p className="tile-context" style={{
             margin: 0, fontSize: 12.5, lineHeight: 1.55, color: C.inkBody,
@@ -1400,6 +1441,136 @@ function IntelBrief() {
           .tile-outer, .tile-inner, .tile-face { height: auto !important; min-height: 0 !important; overflow: visible !important; }
           .tile-context { -webkit-line-clamp: unset; display: block; }
           .tile-back-clamp { -webkit-line-clamp: unset; display: block; }
+        }
+
+        /* ============================================================
+           V2 WIN/PURSUIT RIBBON — flagged tiles get a 42px gradient ribbon
+           at the top with the LF/HS WIN or LF/HS IN-PURSUIT label and tags.
+           At desktop the ribbon holds tags inline; at mobile (<= 900px)
+           tags fall back to the standard tag-row beneath the ribbon.
+           ============================================================ */
+        .tile-flagged {
+          position: relative;
+          overflow: hidden; /* clip the ribbon's rounded corners cleanly */
+        }
+        .tile-ribbon {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 42px;
+          /* Top corners rounded to match card border-radius (8px) minus the 1.5px border */
+          border-top-left-radius: 6.5px;
+          border-top-right-radius: 6.5px;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          padding: 0 14px;
+          gap: 10px;
+          overflow: hidden; /* safety net in case content tries to spill */
+        }
+        .tile-flagged-win .tile-ribbon {
+          /* Edge color matches the red border (#C41230) so the ribbon merges into the card outline.
+             Antique gold (#D4A93C / #E8C547) at the center for a subtle celebratory shimmer. */
+          background: linear-gradient(90deg,
+            #C41230 0%, #C41230 12%, #B11529 22%,
+            #D4A93C 42%, #E8C547 50%, #D4A93C 58%,
+            #B11529 78%, #C41230 88%, #C41230 100%);
+          background-size: 200% 100%;
+          animation: tile-ribbon-shimmer 8s ease-in-out infinite;
+        }
+        .tile-flagged-pursuit .tile-ribbon {
+          background: linear-gradient(90deg,
+            #1F7A4D 0%, #1F7A4D 12%, #155633 22%,
+            #5DA17B 42%, #7FBE9A 50%, #5DA17B 58%,
+            #155633 78%, #1F7A4D 88%, #1F7A4D 100%);
+          background-size: 200% 100%;
+          animation: tile-ribbon-shimmer 8s ease-in-out infinite;
+        }
+        @keyframes tile-ribbon-shimmer {
+          0%   { background-position: 30% 0; }
+          50%  { background-position: 70% 0; }
+          100% { background-position: 30% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .tile-flagged-win .tile-ribbon,
+          .tile-flagged-pursuit .tile-ribbon {
+            animation: none;
+            background-position: 50% 0;
+          }
+        }
+        .tile-ribbon-label {
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.16em;
+          color: white;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+          white-space: nowrap;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          flex-shrink: 0;
+        }
+        .tile-ribbon-label svg {
+          filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+        }
+        .tile-ribbon-tags {
+          display: flex;
+          gap: 6px;
+          margin-left: auto;
+          align-items: center;
+          min-width: 0; /* allow shrink */
+          overflow: hidden;
+        }
+        .tile-ribbon-tag {
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          padding: 3px 7px;
+          border-radius: 3px;
+          background: rgba(255,255,255,0.92);
+          border: 1px solid rgba(255,255,255,0.4);
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .tile-flagged-win .tile-ribbon-tag { color: #8E0E22; }
+        .tile-flagged-pursuit .tile-ribbon-tag { color: #155633; }
+
+        /* On flagged tiles at desktop:
+           - Tags are inside the ribbon, so the inner div with tags is hidden
+           - The tags-row container is positioned absolutely so it doesn't take
+             vertical layout space (this kills the empty gap between ribbon and headline).
+             Only the bookmark button remains, anchored to top-right just below the ribbon.
+           !important is needed because the JSX uses inline styles. */
+        .tile-flagged .tile-tags-row > div:first-child { display: none !important; }
+        .tile-flagged .tile-tags-row {
+          position: absolute !important;
+          top: 50px;
+          right: 14px;
+          width: auto !important;
+          margin: 0 !important;
+          gap: 0 !important;
+          z-index: 3;
+        }
+
+        /* Mobile fallback at <= 900px: drop tags out of ribbon, restore tags-row to normal flow.
+           Aligns with the existing 1-column grid breakpoint. */
+        @media (max-width: 900px) {
+          .tile-ribbon-tags { display: none; }
+          .tile-flagged .tile-tags-row {
+            position: static !important;
+            top: auto;
+            right: auto;
+            width: auto !important;
+            justify-content: space-between !important;
+            margin: 0 !important;
+            gap: 8px !important;
+          }
+          .tile-flagged .tile-tags-row > div:first-child { display: flex !important; }
+          /* Tinted tag-row tags so they still read as "celebratory" at mobile */
+          .tile-flagged-win .tile-tags-row .tag,
+          .tile-flagged-pursuit .tile-tags-row .tag {
+            border-color: transparent;
+          }
         }
 
         /* Tile shell — content-driven height with same-row equalization via CSS Grid.
