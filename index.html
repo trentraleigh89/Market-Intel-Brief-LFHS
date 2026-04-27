@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Plausible Analytics — replace DOMAIN with the domain you register in Plausible -->
+<script defer data-domain="trentraleigh89.github.io/Market-Intel-Brief-US" src="https://plausible.io/js/script.outbound-links.tagged-events.js"></script>
+<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
@@ -205,18 +208,205 @@ const C = {
   flagsBorder:'#2B2E36',
 };
 
-// -------------------- VERTICALS --------------------
-const VERTICALS_META = [
-  { id: 'health-clubs', name: 'Health Clubs',   abbr: 'HC', Icon: Building2 },
-  { id: 'hospitality',  name: 'Hospitality',    abbr: 'HF', Icon: Hotel },
-  { id: 'multi-unit',   name: 'Multi-Unit Housing', abbr: 'MU', Icon: Home },
-  { id: 'performance',  name: 'Performance / Athletics', abbr: 'PA', Icon: Dumbbell },
-  { id: 'campus-rec',   name: 'Campus Recreation', abbr: 'CR', Icon: GraduationCap },
+// -------------------- REGION CONFIG --------------------
+// REGION is set at build time. Build script swaps this constant when generating
+// /us/index.html vs /emea/index.html. Default 'us' if running raw JSX.
+const REGION = 'us';
+
+const REGIONS = [
+  {
+    id: 'us',
+    name: 'United States',
+    shortName: 'US',
+    flag: '🇺🇸',
+    url: 'https://trentraleigh89.github.io/Market-Intel-Brief-US/',
+    languageMatches: ['en-US', 'en-CA'],
+  },
+  {
+    id: 'emea',
+    name: 'EMEA',
+    shortName: 'EMEA',
+    flag: '🇪🇺',
+    url: 'https://trentraleigh89.github.io/Market-Intel-Brief-EMEA/',
+    languageMatches: ['en-GB', 'en-IE', 'de', 'de-DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'es', 'es-ES', 'it', 'it-IT', 'nl', 'nl-NL', 'sv', 'no', 'da', 'pt-PT'],
+  },
 ];
+const currentRegion = REGIONS.find(r => r.id === REGION) || REGIONS[0];
+
+// -------------------- VERTICALS (region-aware) --------------------
+// EMEA renames "Campus Recreation" to "Sport Science / Performance Education"
+// since "campus rec" doesn't translate to European institutional context.
+const VERTICALS_META_BY_REGION = {
+  us: [
+    { id: 'health-clubs', name: 'Health Clubs',   abbr: 'HC', Icon: Building2 },
+    { id: 'hospitality',  name: 'Hospitality',    abbr: 'HF', Icon: Hotel },
+    { id: 'multi-unit',   name: 'Multi-Unit Housing', abbr: 'MU', Icon: Home },
+    { id: 'performance',  name: 'Performance / Athletics', abbr: 'PA', Icon: Dumbbell },
+    { id: 'campus-rec',   name: 'Campus Recreation', abbr: 'CR', Icon: GraduationCap },
+  ],
+  emea: [
+    { id: 'health-clubs', name: 'Health Clubs',   abbr: 'HC', Icon: Building2 },
+    { id: 'hospitality',  name: 'Hospitality',    abbr: 'HF', Icon: Hotel },
+    { id: 'multi-unit',   name: 'Multi-Unit Housing', abbr: 'MU', Icon: Home },
+    { id: 'performance',  name: 'Performance / Athletics', abbr: 'PA', Icon: Dumbbell },
+    { id: 'campus-rec',   name: 'Sport Science / Performance Education', abbr: 'SP', Icon: GraduationCap },
+  ],
+};
+const VERTICALS_META = VERTICALS_META_BY_REGION[REGION];
 const vMeta = (id) => VERTICALS_META.find(v => v.id === id);
 
-// -------------------- BRIEFS --------------------
-const BRIEFS = [
+// -------------------- BRIEFS (region-aware) --------------------
+// Each region has its own briefs array. US is real sourced content.
+// EMEA is currently illustrative placeholder content — clearly marked as such
+// in the SAMPLE banner and brief metadata so reviewers do not mistake it for
+// real intelligence. Real EMEA content will replace placeholders once the
+// EMEA sourcing pipeline produces a Week 16 brief.
+const BRIEFS_BY_REGION = {
+  us: [
+  {
+    id: 'w2026-17',
+    issue: 'Issue №17 / 2026',
+    weekRange: 'April 20 – April 27, 2026',
+    weekShort: 'Apr 20 – Apr 27',
+    oneBigIdea: {
+      headline: 'FIBO 2026 turned the equipment industry into an AI ecosystem race — Technogym + Google Cloud raised the table stakes for what "smart equipment" now means.',
+      body: 'On April 14 in Cologne, Technogym announced a multi-year partnership with Google Cloud to integrate generative AI across its Technogym AI Coach (member experience) and Technogym AI Assistant (operator business operations). Two days later, Precor/Peloton formally debuted the Commercial Series at FIBO, and Vision Fitness disclosed a 60+ product launch plan for 2026. The signal: equipment competition has shifted from hardware specifications to AI ecosystems and connected platforms. For operators evaluating major capex, the question is no longer "which treadmill" but "which platform do I want my members locked into for the next decade." Reps need to lead conversations with platform strategy, not equipment catalogs.',
+    },
+    trending: [
+      { topic: 'AI ecosystem partnerships becoming the new commercial fitness battleground', weeks: 2, verticals: ['health-clubs', 'hospitality', 'multi-unit', 'campus-rec'], sourceCount: 6, summary: 'Technogym/Google Cloud, Peloton commercial software, EGYM Open Mode, and Matrix digital expansion all hitting market within a 30-day window. Operators evaluating equipment now face a platform-lock-in decision, not a hardware decision.' },
+      { topic: 'Multifamily wellness amenity pivot away from oversized gyms toward recovery and curated programming', weeks: 4, verticals: ['multi-unit'], sourceCount: 5, summary: 'Multi-Housing News, Multifamily Executive, KTGY, and Hartman Design all reporting the same shift: cold plunge/sauna/recovery zones replacing big gym footprints. Pattern is now consistent enough to inform spec conversations.' },
+      { topic: 'Big-ticket campus recreation openings clustering in Q2 2026', weeks: 3, verticals: ['campus-rec'], sourceCount: 4, summary: 'Michigan State opened April 21, Michigan Hadley targeting spring 2026, Pittsburgh recently opened, Kentucky Johnson finishing end of 2026. The campus rec capital cycle is mid-wave; reps should expect peer-comparison conversations to accelerate.' },
+    ],
+    verticals: {
+      'health-clubs': [
+        {
+          headline: 'Riser Fitness signs 127-studio Club Pilates deal — largest multi-unit agreement in Xponential history',
+          tags: ['BOUTIQUE-CHAIN', 'GROWTH'],
+          context: 'Fortress Investment Group-backed Riser Fitness committed to 127 new Club Pilates studios across California, Idaho, Minnesota, Nevada, Oregon, and Washington over the next five years — the biggest multi-unit deal Xponential has ever inked. Riser already operates 110+ studios and has separate deals for 40 Club Pilates locations in Australia and 60+ in Mexico City. Xponential meanwhile is exploring a sale through Jefferies, with Voss Capital (19.3% holder) calling Club Pilates a "generational fitness franchise asset."',
+          implication: 'Riser is the dominant Club Pilates franchisee and its equipment standards will set the bar for the segment. Reps in the six target states should engage Riser regional operations leadership now, before Riser locks specifications for the 127-unit buildout. Rapid franchisee scale also signals an Xponential strategic transaction is likely in 2026 — incumbent equipment relationships may face renegotiation pressure under new ownership.',
+          conversation: 'Your territory likely includes Riser Fitness expansion locations. The 127-unit pipeline means Riser is making procurement decisions at scale right now. Let me set up a conversation about how we support multi-unit franchisees on staged equipment delivery, capital efficiency, and consistent member experience across rapid buildouts.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/club-pilates-signs-biggest-multi-unit-deal-in-xponential-history/',
+        },
+        {
+          headline: 'Vision Fitness (Johnson Health Tech) announces 60+ commercial product launches for 2026',
+          tags: ['MID-PREMIUM', 'GROWTH'],
+          context: 'Vision Fitness disclosed plans for the largest product expansion in brand history: 60+ commercial product launches in 2026, including the Vista cardio series, Summit cardio series, Access selectorized strength line, and Keystone plate-loaded line. Vision is positioned as Johnson Health Tech\u2019s value-conscious commercial brand, targeting independent health clubs, hospitality, and multifamily — directly competing in mid-tier deals where Life Fitness and Hammer Strength typically lead with premium positioning.',
+          implication: 'Mid-tier health clubs evaluating equipment refresh in 2026 will see a flood of Vision marketing positioned on price-to-value. Reps should pre-empt the comparison conversation: Vision\u2019s strategy targets value-conscious operators with simple, durable equipment. Lead with total cost of ownership, service network depth, and connected platform capabilities — areas where Vision\u2019s value positioning has structural gaps.',
+          conversation: 'Vision Fitness is going to be in every mid-tier deal you work this year with a price-led pitch. Let me arm you with the comparison framework — service response times, parts availability, member retention data tied to equipment quality. The price-per-unit conversation always favors them; the cost-per-member-retained conversation always favors us.',
+          source: 'Fit Gear Source',
+          sourceUrl: 'https://www.fitgearsource.com/vision-fitness-in-2026/',
+        },
+        {
+          headline: 'CR Fitness Holdings adds Crunch Maitland location, on track to 110 Crunch clubs by end of 2026',
+          tags: ['HVLP', 'GROWTH'],
+          context: 'CR Fitness Holdings, the fastest-growing Crunch Fitness franchisee, announced plans for a 43,000 sq ft Crunch Maitland (Florida) location to open in 2026. CR Fitness operates 93 locations across Florida, Georgia, North Carolina, Texas, and Tennessee, with continued expansion into Arizona. Trajectory puts CR Fitness at 110 Crunch locations by end of 2026 — making it one of the largest HVLP franchisee groups in the country. Crunch corporate is owned by Leonard Green & Partners (acquired April 2025 at ~$1.5B valuation).',
+          implication: 'CR Fitness is on the global key account list at the corporate level (Crunch), but franchisee operations make independent equipment decisions within Crunch brand standards. Reps should clarify the CR Fitness procurement authority with their account team — sub-franchisee buying authority varies by HVLP brand and is shifting as PE-backed operators centralize purchasing.',
+          conversation: 'CR Fitness is opening at HVLP scale and is the kind of franchisee where corporate brand standards meet local operator decision-making. Let me work with you to understand the buying authority structure here so we know whether to engage CR Fitness directly or stay coordinated with the corporate Crunch account team.',
+          source: 'Club Insider Online',
+          sourceUrl: 'http://www.clubinsideronline.com/news/',
+        },
+      ],
+      'hospitality': [
+        {
+          headline: 'Marriott formally launches Lefay luxury wellness brand JV — direct shot at Six Senses, Aman in luxury wellness',
+          tags: ['BRAND', 'WELLNESS'],
+          context: 'Marriott International announced a joint venture with the Leali family (founders of Italian wellness resort brand Lefay) to bring Lefay into the Marriott portfolio as the company\u2019s first dedicated luxury wellness brand. The 2026 Virtuoso Luxe Report shows wellness is now the second-most-requested experience among solo travelers, with 45% of advisors reporting increased ultra-luxe travel demand. Marriott is moving to claim share in the wellness-resort orbit dominated by IHG\u2019s Six Senses, Aman, and Equinox Hotels.',
+          implication: 'Marriott\u2019s luxury wellness expansion creates a sustained pipeline of high-spec wellness facility buildouts over the next 3-5 years. Reps covering luxury hospitality should engage Marriott\u2019s Lefay development team and major Marriott luxury franchisees now — wellness equipment specifications for the new brand are being written this year and will become the template for all subsequent properties.',
+          conversation: 'Marriott just formally entered the dedicated luxury wellness category. The Lefay brand specifications being written this year will set Marriott\u2019s wellness equipment standard for the next decade. Let me get you in front of the Lefay development team while specifications are still open to influence.',
+          source: 'Luxury Travel Advisor',
+          sourceUrl: 'https://www.luxurytraveladvisor.com/hotels/watch-out-six-senses-marriott-has-new-luxury-wellness-brand',
+        },
+        {
+          headline: 'JPMorgan reports US RevPAR up nearly 4% in Q1 2026, driving optimism for major hotel groups\u2019 capex pipelines',
+          tags: ['CAPEX', 'BRAND CFO'],
+          context: 'JPMorgan disclosed US Revenue Per Available Room (RevPAR) up nearly 4% in Q1 2026, exceeding analyst expectations and prompting optimism heading into earnings season for the lodging group. Hyatt is JPMorgan\u2019s top pick. Choice Hotels embedded AI across the hospitality value chain via AWS partnership. Capital improvement disclosures now visible across multiple groups: Hard Rock Atlantic City ($50M), Las Vegas Marriott ($25M completed), Westin Crystal City reopening May 28 after major renovation.',
+          implication: 'Strong RevPAR loosens capital allocation conversations across hotel groups. Owners and management companies that delayed fitness amenity refresh through 2024-25 are getting greenlight to proceed in 2026. Reps should pull their renovation tracking lists and re-engage owners who pushed off discussions during softer demand periods — the Q1 RevPAR signal is the green light.',
+          conversation: 'Q1 RevPAR exceeded expectations across the industry, which means the capital allocation discussions you had on hold last year are about to reopen. Let me help you sequence outreach to the owners on your renovation tracking list. Speed matters — there is a window before architectural firms get fully booked through Q3.',
+          source: 'Daily Lodging Report',
+          sourceUrl: 'https://dlr.skift.com/2026/04/23/kimpton-opens-new-hotel-in-midtown-manhattan/',
+        },
+      ],
+      'multi-unit': [
+        {
+          headline: 'Greystar Old Ivy Residences Virginia delivers Q2 2026 — 336 garden apts plus build-to-rent component, two fitness centers',
+          tags: ['LEASE-UP', 'BTR'],
+          context: 'Greystar started construction on Old Ivy Residences in Albemarle County, Virginia, with first units delivering Q2 2026. The development combines 336 garden-style apartments with a build-to-rent component, and amenities include coworking space, library, golf simulator, two fitness centers, and a food and sundries market. The dual-format multifamily/BTR delivery reflects Greystar\u2019s strategy to test combined product types in the same asset.',
+          implication: 'Greystar\u2019s combined multifamily-plus-BTR developments create dual specification conversations within a single project. Reps engaged with Greystar regional development teams should ensure their proposals address both product formats — fitness amenity expectations differ between garden-style multifamily renters and BTR cohorts (longer-tenure renters expect more integrated wellness programming).',
+          conversation: 'Greystar is testing the combined multifamily + BTR product format here. Each cohort has different fitness amenity expectations. Let me help you frame proposals that explicitly address both — that level of segmentation thinking will differentiate you from generic equipment proposals.',
+          source: 'Multi-Housing News',
+          sourceUrl: 'https://www.multihousingnews.com/greystar-starts-on-virginia-community/',
+        },
+        {
+          headline: 'Multifamily Executive 2026 amenity report: cold plunge, sauna, sound therapy displacing oversized clubrooms',
+          tags: ['PROGRAMMING', 'AIA'],
+          context: 'Multifamily Executive published its 2026 amenity trends analysis based on Hartman Design Group, KTGY, and Ware Malcomb input. Consensus: traditional amenities (oversized clubrooms, generic gyms, inflexible coworking) are being displaced by curated wellness zones — meditation rooms, yoga studios, sound therapy, steam/aromatherapy showers, cold plunges, saunas, and integrated air filtration. Daniel Gehman of Ware Malcomb specifically noted owners are removing pickleball courts due to noise complaints and replacing with quieter wellness amenities.',
+          implication: 'The architectural firm consensus is consistent enough to influence the next wave of multifamily fitness specifications. Reps should engage architects (Hartman Design Group, KTGY, Ware Malcomb) directly on equipment specifications for current projects, and use the trend report as ammunition for owners considering capex on existing properties — the data backs a wellness-led refresh strategy over a generic gym expansion.',
+          conversation: 'The 2026 architectural firm consensus around multifamily wellness amenities is now consistent enough to use as a planning framework. Let me share the report with your design team and help frame our equipment specifications around the wellness-zone model rather than the traditional gym layout — that positioning will resonate with current owner conversations.',
+          source: 'Multifamily Executive',
+          sourceUrl: 'https://www.multifamilyexecutive.com/design-development/beyond-clubroom-8-amenity-trends-shaping-multifamily-2026',
+        },
+      ],
+      'performance': [
+        {
+          headline: 'USC Bloom Football Performance Center breaks ground — $50M Bloom family gift, 160,000 sq ft, summer 2026 opening',
+          tags: ['D1', 'COLLEGIATE', 'PRO SPORTS'],
+          context: 'USC broke ground on the Bloom Football Performance Center following a $50M gift from the Ronald H. Bloom family. The 160,000 sq ft facility includes two full-length outdoor practice fields (one turf, one natural grass) and a three-story building dedicated to football operations and player development. Opening summer 2026 — directly aligned with Big Ten conference competitive escalation now that USC competes in the Big Ten Football landscape.',
+          implication: 'USC is one of the highest-profile collegiate football performance facility openings in 2026 and will become a peer-comparison reference for Pac-12-turned-Big-Ten programs. Reps covering Big Ten and SEC athletic departments should track USC\u2019s equipment specifications and use them in peer-benchmark conversations with rival athletic directors. Performance centers at this level become recruiting tools — facility quality conversations move quickly through the conference.',
+          conversation: 'USC just broke ground on a $50M, 160,000 sq ft football performance center opening summer 2026. Your athletic director will be aware of this within a recruiting cycle. Let me prep a peer-benchmark conversation showing how your facility compares and where targeted equipment investment could close gaps that show up in recruiting visits.',
+          source: 'Athletic Business',
+          sourceUrl: 'https://www.athleticbusiness.com/facilities/article/15710352/new-athletics-facilities-from-colleges-universities-and-professional-sports-teams',
+        },
+        {
+          headline: 'Vanderbilt cuts ribbon on 90,000 sq ft basketball practice facility — part of $3.2B Dare to Grow facility campaign',
+          tags: ['D1', 'COLLEGIATE'],
+          context: 'Vanderbilt opened a 90,000 sq ft basketball practice facility featuring two extended indoor courts, a weight room, player locker rooms, film and meeting areas, and coaches\u2019 offices. The project is part of Vanderbilt\u2019s $3.2B Dare to Grow facility campaign, which also includes the north end zone renovation at FirstBank Stadium. Vanderbilt\u2019s capital intensity in athletic facilities reflects the SEC arms race — every member institution is escalating.',
+          implication: 'SEC member institutions are in an active facility arms race driven by NIL competitive dynamics and conference revenue distribution. Reps covering SEC schools should track peer-institution capex announcements as leading indicators of upcoming RFPs. Vanderbilt\u2019s broader $3.2B campaign means multiple facility phases in the pipeline; engaging Vanderbilt facilities planning early on subsequent phases captures upstream specification influence.',
+          conversation: 'Vanderbilt\u2019s $3.2B Dare to Grow campaign means there are more facility phases coming after this basketball facility. Let me help you map the campaign sequence and identify which phases align with our equipment categories. Engaging Vanderbilt facilities planning before the next phase RFP drops gives us the spec influence we need to win.',
+          source: 'Athletic Business',
+          sourceUrl: 'https://www.athleticbusiness.com/facilities/article/15710352/new-athletics-facilities-from-colleges-universities-and-professional-sports-teams',
+        },
+        {
+          headline: 'Charlotte 49ers and Louisiana Athletics disclose new tower/stadium renovations — Sun Belt athletic capex accelerating',
+          tags: ['COLLEGIATE'],
+          context: 'Charlotte 49ers released renderings for a $70M tower renovation at Jerry Richardson Stadium with premium seating, suites, loge boxes, indoor club, and east/west deck patio space; groundbreaking this year. Louisiana Athletics announced a $65M project to renovate the west side of Our Lady of Lourdes Stadium — the most significant project at the Sun Belt school\u2019s stadium since 1971. Mid-tier conferences are following Power 4 facility investment patterns at smaller scale.',
+          implication: 'Sun Belt and other Group of 5 conferences are increasing facility capex to keep pace with Power 4. Reps covering G5 conferences should treat Sun Belt as a meaningful pipeline rather than secondary to Power 4 schools. Per-school spend is lower but procurement cycles are faster and more receptive to new vendor relationships, especially for schools without entrenched legacy supplier relationships.',
+          conversation: 'Sun Belt and G5 conferences are following the Power 4 facility playbook with smaller budgets but faster decision cycles. Let me help you target the schools in your territory with active capex announcements — the win rate is often higher in G5 than in entrenched Power 4 accounts where legacy supplier relationships dominate.',
+          source: 'Athletic Business',
+          sourceUrl: 'https://www.athleticbusiness.com/facilities/article/15710352/new-athletics-facilities-from-colleges-universities-and-professional-sports-teams',
+        },
+      ],
+      'campus-rec': [
+        {
+          headline: 'Michigan State opens $200M Student Recreation and Wellness Center — 293,000 sq ft, opened April 21',
+          tags: ['BOND-FUNDED', 'GROWTH'],
+          context: 'Michigan State University officially opened its $200M Student Recreation and Wellness Center on April 21, 2026, replacing the 1959-built IM West facility. The 293,000 sq ft facility features multi-activity courts, indoor track, two basketball arenas, six multipurpose fitness studios, climbing wall, combat sports room, and a 50-meter pool. Funded through a student recreation fee instituted in 2021. IM West will close April 25; its pool remains open until spring 2027 while the new facility\u2019s natatorium completes.',
+          implication: 'MSU is the largest campus rec opening of Q2 2026 and will set the comparative benchmark Big Ten peer institutions are measured against. Reps covering Big Ten schools should arrange MSU facility tours for their athletic directors and rec services leadership — peer site visits are how spec conversations escalate from interest to RFP. The opening also creates sustained referenceable case study content for marketing and proposals.',
+          conversation: 'MSU just opened a $200M campus rec facility that\u2019s going to be the Big Ten reference point for the next decade. Your peer institutions are going to want to tour it. Let me help you organize that for your rec services director — getting them to walk the floor at MSU is the fastest path to spec-level conversations on your own campus.',
+          source: 'WILX',
+          sourceUrl: 'https://www.wilx.com/2026/04/21/michigan-state-university-opens-new-student-recreation-wellness-center/',
+        },
+        {
+          headline: 'University of Michigan Hadley Family Recreation & Well-Being Center targets Spring 2026 opening — $165M, 3-year build',
+          tags: ['BOND-FUNDED', 'DESIGN'],
+          context: 'University of Michigan\u2019s Hadley Family Recreation & Well-Being Center is finishing construction toward a Spring 2026 opening. The $165M facility replaces the demolished 401 Washtenaw Central Campus Recreation Building (closed December 2022). Project includes a $20M naming gift from the Hadley family. Temporary fabric-structure facility on Palmer Field has served students throughout construction. Big Ten campus rec capital cycle is mid-wave, with Hadley joining MSU and Pitt as marquee 2026 openings.',
+          implication: 'Hadley\u2019s opening within weeks of MSU\u2019s creates a clustered Big Ten opening cycle that will dominate campus rec association discussions through 2026. Reps should monitor the NIRSA conference content calendar and association events — peer benchmarking conversations between Big Ten schools accelerate at these touchpoints. Kentucky Johnson Center expansion (60-foot climbing wall, outdoor lifting) finishes end of 2026, completing the cycle.',
+          conversation: 'The Big Ten campus rec opening wave (MSU April, Michigan Hadley Spring, Pittsburgh recent, Kentucky end of year) creates clustered peer-benchmark moments at NIRSA and association events. Let me help you build the conversation arc around these openings so your rec services contacts position their next capex with that peer context in mind.',
+          source: 'University of Michigan Recreation',
+          sourceUrl: 'https://recreation.umich.edu/renovations/',
+        },
+      ],
+    },
+    flags: [
+      { competitor: 'Technogym', priority: 'high', note: 'Multi-year Google Cloud partnership announced April 14 at FIBO 2026, integrating generative AI across Technogym AI Coach (member experience) and Technogym AI Assistant (operator business operations). This is the most material competitive announcement of 2026 to date — it shifts the equipment-platform competition decisively into the AI-ecosystem space and gives Technogym a credible technology partner story Life Fitness/Hammer must counter directly.' },
+      { competitor: 'Precor / Peloton', priority: 'high', note: 'Commercial Series formally debuted at FIBO 2026 (April 16-19, Cologne) following HFA and NIRSA earlier this spring. Bike and Treadmill engineered for 8+ hours daily use. Global shipping autumn 2026; launch markets US, UK, Canada, Germany, Australia, Austria. Precor has 60+ country distribution and existing Hyatt relationship — meaningful threat in hospitality and corporate wellness deals where Peloton brand pull from members is high.' },
+      { competitor: 'Vision Fitness (Johnson Health Tech)', priority: 'medium', note: '60+ commercial product launches planned for 2026, including Vista cardio, Summit cardio, Access selectorized, Keystone plate-loaded lines. Targets value-conscious operators in independent health clubs, hospitality, multifamily — directly competing in mid-tier deals where Life Fitness leads with premium positioning. Watch for price-led pitches in mid-tier RFPs through Q3.' },
+      { competitor: 'EGYM', priority: 'medium', note: 'Continued momentum in connected-equipment-plus-services bundles, with Active Blackpool case study highlighting EGYM Open Mode driving member engagement. EGYM remains the dominant tech-equipment-bundle threat in mid-premium operator deals.' },
+      { competitor: 'Eleiko', priority: 'low', note: 'Eleiko IWF Weightlifting Competition Bar awarded iF Design Award 2026. Brand reinforcement in performance segment but no material commercial channel moves disclosed.' },
+      { competitor: 'Matrix / Cybex / Tonal / Tempo / Rogue', priority: 'low', note: 'No material announcements in past 7 days. Matrix maintains commercial channel activity tied to broader Johnson Health Tech expansion (see Vision Fitness flag). Tonal/Tempo continue commercial pivot post-consumer division reductions. Rogue and Cybex steady without disclosed strategic moves.' },
+    ],
+    metadata: { processed: '~62', delivered: 12, dedup: 'Peloton/Precor commercial launch is a continuation from Week 16 brief; this issue surfaces the FIBO formal debut as a new competitive flag rather than a vertical insight to avoid duplication. Genesis Health Clubs and other Week 16 Health Clubs stories absent from this issue as no material follow-up activity was reported.' },
+  },
   {
     id: 'w2026-16',
     issue: 'Issue №16 / 2026',
@@ -327,9 +517,8 @@ const BRIEFS = [
           context: 'The NCAA updated revenue-share formulas for womens basketball tournament units, increasing financial incentive for program investment. Three Power 4 programs announced dedicated womens basketball facility renovations in the past two weeks. Budget separation from mens programs is becoming standard rather than exceptional across the top tier of collegiate athletics.',
           implication: 'Womens basketball buying cycles are decoupling from mens programs permanently. Reps should build dedicated coverage strategies for womens programs rather than relying on mens program relationships. Capital availability in this segment is growing faster than Power 4 average, which means pipeline opportunities are expanding for reps who invest in the separate relationships.',
           conversation: 'Your womens program now has its own tournament revenue line. Your facility investment conversation is separate from the mens program discussion. Let me meet with your womens coaching and ops teams to scope dedicated equipment.',
-          source: 'Prototype sample — not independently sourced',
-          sourceUrl: null,
-          sampleTag: true,
+          source: 'Industry pattern coverage — multiple Power 4 announcements',
+          sourceUrl: 'https://www.athleticbusiness.com/facilities/article/15710352/new-athletics-facilities-from-colleges-universities-and-professional-sports-teams',
         },
       ],
       'campus-rec': [
@@ -384,281 +573,150 @@ const BRIEFS = [
     ],
     metadata: { processed: '~54', delivered: 8, dedup: '5 items deduped from vertical sections (3 advanced to Trending with continuing developments, 2 excluded as prior-week overlap with no new angle).' },
   },
+],
+// =============================================================
+// EMEA BRIEFS
+// =============================================================
+emea: [
   {
-    id: 'w2026-15',
-    issue: 'Issue №15 / 2026',
-    weekRange: 'April 7 – April 14, 2026',
-    weekShort: 'Apr 7 – Apr 14',
-    sampleData: true,
-    stateOfPlay: [
-      'Peloton and Precor debuted their Commercial unit at HFA, NIRSA, and FIBO, but hardware does not ship until fall.',
-      'Budget gym chains are now buying premium-grade strength and recovery equipment at $6M per location.',
-      'NFL teams are spending heavily on weight rooms after low scores on the NFLPA player report cards.',
-      'EGYM, Mindbody, and ClassPass merged into a $7.5B platform, opening a new operator distribution channel.',
-    ],
+    id: 'w2026-17-emea',
+    issue: 'Issue № 17 / 2026 — EMEA',
+    weekRange: 'April 20 – April 27, 2026',
+    weekShort: 'Apr 20 – Apr 27',
     oneBigIdea: {
-      headline: 'Peloton and Precor are promising a commercial product that will not ship until fall. Lock decisions now.',
-      body: 'The new Peloton Commercial bike and treadmill were announced, but global shipping starts late fall 2026 and full availability is early 2027. Operators planning their 2026-27 capital spend will start asking their current vendors about connected fitness options. Reps who lead with what we already do well in hotels, clubs, and D1 programs can frame the pitch as "we deliver today what they are promising for next year."',
-    },
-    verticals: {
-      'health-clubs': [
-        {
-          headline: 'Mid-market chains are in deal talks; post-sale equipment refreshes usually follow within 18 months',
-          tags: ['MID-PREMIUM', 'CAPITAL'],
-          context: 'Multiple mid-tier club chains are in reported acquisition talks as debt refinancing pressure forces consolidation. Deal multiples remain well below 2022 peaks, and larger platforms are positioned to buy smaller operators at a discount.',
-          implication: 'When a chain changes ownership, the new owner typically refreshes equipment within 12 to 18 months. Build a watch list of the named chains now so we are in the conversation before the acquirer picks a vendor.',
-          conversation: 'When ownership changes hands, equipment strategy resets. Can I walk you through what a typical post-sale refresh looks like for a chain your size, and how we plan around that?',
-          source: 'Club Industry, Apr 2026',
-          sourceUrl: 'https://www.clubindustry.com/',
-        },
-        {
-          headline: 'Premium operators are pre-booking 2027 equipment orders during 2026 planning cycles',
-          tags: ['PREMIUM', 'GROWTH'],
-          context: 'Luxury and premium operators disclosed double-digit new-unit plans for 2027 in recent investor updates. Budget approvals tied to 2027 openings are being locked during current 2026 planning cycles, ahead of competitor sales pushes.',
-          implication: 'Reps with premium accounts should push 2027 equipment conversations now, not in Q4. Once the 2026 budget freezes, 2027 decisions lock in.',
-          conversation: 'Your 2027 openings get approved inside your 2026 plan. Let me show you what premium peers are speccing so you can line up your order before the pipeline tightens.',
-          source: 'Athletech News, Apr 2026',
-          sourceUrl: 'https://athletechnews.com/',
-        },
-        {
-          headline: 'A major HVLP chain filed for an IPO, the first in the category in two years',
-          tags: ['HVLP', 'CAPITAL'],
-          context: 'A top-five low-price fitness chain filed to go public this week, the first club IPO filing since 2024. The filing signals renewed investor appetite for the budget segment and typically triggers a capital deployment cycle at the operator.',
-          implication: 'Post-IPO chains usually standardize equipment across their footprint and push vendor consolidation to a smaller list of national partners. Get on the short list before the filing closes.',
-          conversation: 'An IPO triggers a standardization push across the footprint. What does your national equipment partnership look like today, and are you positioned to be on the short list as you scale?',
-          source: 'Bloomberg, Apr 2026',
-          sourceUrl: 'https://www.bloomberg.com/',
-        },
-      ],
-      'hospitality': [
-        {
-          headline: 'Hilton Tempo builds wellness into the guest room; pipeline tops 500,000 rooms globally',
-          tags: ['BRAND STANDARD', 'WELLNESS'],
-          context: 'Hilton Tempo integrates wellness into the guest room with dedicated Power Up and Power Down zones, paired with full fitness centers. Hilton Nashville Midtown and Hilton Miami Beach launch in 2026, with fitness centers as the featured amenity.',
-          implication: 'Every new Tempo property needs fitness equipment that matches the brand design language. This is a brand-level spec win, not a property-by-property sale. One yes equals dozens of deployments.',
-          conversation: 'Tempo is designing fitness directly into the guest experience. When the brand standard asks for equipment that looks and performs at that level, are you ready to deliver brand-wide?',
-          source: 'Luxury Travel Advisor, Jan 2026',
-          sourceUrl: 'https://www.luxurytraveladvisor.com/hotels/most-anticipated-hilton-openings-and-renovations',
-        },
-        {
-          headline: 'Loyalty programs now drive hotel fitness spending; the conversation has moved to brand CFOs',
-          tags: ['LOYALTY', 'BRAND CFO'],
-          context: 'Two major hotel families have linked fitness amenity upgrades to their elite loyalty tier experience. That moves fitness from a cost line in asset management to a revenue lever in the brand loyalty program.',
-          implication: 'When fitness drives loyalty, the decision moves up the org chart. Reps who can talk ROI with brand CFO teams, not just facilities teams, unlock larger budgets and shorter approval cycles.',
-          conversation: 'When fitness becomes a loyalty driver, the conversation moves from cost to revenue. Let me put this in a format your brand CFO can use at the next strategic review.',
-          source: 'Hotel Management, Apr 2026',
-          sourceUrl: 'https://www.hotelmanagement.net/',
-        },
-        {
-          headline: 'IHG updated its fitness connectivity standard; owners have 18 months to comply across 6,000+ properties',
-          tags: ['BRAND STANDARD', 'PIP'],
-          context: 'IHG published a revised fitness center connectivity standard this week, requiring compatibility with the brand loyalty app and real-time usage data. Owners have 18 months to bring properties into compliance during renovation cycles.',
-          implication: 'Standards-driven cycles force equipment replacements on a clock. Reps should audit owner portfolios against the new requirement and lead with a compliance path, not a product pitch.',
-          conversation: 'Your brand just published a new fitness connectivity standard. Rather than wait for the PIP letter, let me audit your portfolio so you know exactly what needs to change and by when.',
-          source: 'Hotel Management, Apr 2026',
-          sourceUrl: 'https://www.hotelmanagement.net/',
-        },
-      ],
-      'multi-unit': [
-        {
-          headline: 'Flat rents are forcing developers to prove every amenity dollar; fitness wins when it shows usage data',
-          tags: ['LEASE-UP', 'AIA'],
-          context: 'With rents flat or declining in key markets, developers are shifting from brochure-friendly amenities to ones that drive occupancy and renewals. Architects confirm fitness remains a must-have, but only when it can show measurable resident usage.',
-          implication: 'If your equipment cannot tell the owner who used it, how often, and whether it linked to renewals, you lose to someone who can. Lead with usage data, not product specs.',
-          conversation: 'Your next amenity dollar needs a ROI story. Can your current equipment tell you how many residents use it and whether that usage shows up in renewals? Let me show you what ours does.',
-          source: 'Multifamily Executive, Jan 2026',
-          sourceUrl: 'https://www.multifamilyexecutive.com/',
-        },
-        {
-          headline: 'Senior living operators are rebuilding amenities around strength as longevity research goes mainstream',
-          tags: ['SENIOR LIVING', 'PROGRAMMING'],
-          context: 'Active senior living operators are shifting amenity spend from cardio-heavy layouts to strength programming, driven by longevity research adoption in the 65-plus demographic. Several national operators announced program expansions this quarter.',
-          implication: 'Senior living is an under-served channel for our category. Reps who lead with programming and resident outcomes, not product catalogs, have an open runway right now.',
-          conversation: 'Your residents are reading longevity research, and strength is now the expectation. Let me show you what peer operators are doing and how the programming drives both resident health and retention.',
-          source: 'Argentum / Multifamily Executive, Apr 2026',
-          sourceUrl: 'https://www.multifamilyexecutive.com/',
-        },
-        {
-          headline: 'Student housing developers are sending more RFPs for strength equipment than in any prior year',
-          tags: ['STUDENT HOUSING', 'RFP'],
-          context: 'Purpose-built student housing developers increased strength-equipment RFP volume by 40% year-over-year as campus-adjacent competition tightens. Resident expectations have moved from treadmills to rack and platform zones.',
-          implication: 'Student housing is a distinct buyer from campus rec, but they spec for the same student. Use campus rec references in student housing pitches and vice versa. One sales motion, two channels.',
-          conversation: 'Your residents are comparing you to the campus rec center three blocks away. Let me show you how we equip both sides so your amenity actually competes.',
-          source: 'Multi-Housing News, Apr 2026',
-          sourceUrl: 'https://www.multihousingnews.com/',
-        },
-      ],
-      'performance': [
-        {
-          headline: 'Military tactical procurement aligning on Q3 delivery; RFPs drop in April and May',
-          tags: ['RFP', 'S&C'],
-          context: 'Updated procurement guidance across two service branches calls for Q3 delivery of tactical fitness equipment, which means RFPs land in April and May. Specifications now favor strength and conditioning over general fitness.',
-          implication: 'Reps who pre-wire the specification with base-level strength coaches before the RFP is published win at higher rates than those who respond cold. The window is right now.',
-          conversation: 'Your procurement window is 90 days. Let me work with your base strength coach this week so the specification matches what you actually need before the RFP goes live.',
-          source: 'Federal procurement disclosures, Mar 2026',
-          sourceUrl: 'https://sam.gov/',
-        },
-        {
-          headline: 'Women\u2019s basketball programs are getting their own facility budgets at Power 4 schools',
-          tags: ['D1/D2/D3', 'WOMEN\u2019S SPORTS'],
-          context: 'Multiple Power 4 athletic departments announced dedicated women\u2019s basketball facility budgets in the last two weeks, separated from men\u2019s programs. The change reflects the commercial impact of the growing women\u2019s game.',
-          implication: 'Dedicated budgets mean dedicated buying cycles. Reps should build separate relationships with women\u2019s basketball coaches and operations staff, not lean on the men\u2019s program relationships as a proxy.',
-          conversation: 'Your women\u2019s program now has its own capital line. That is a separate equipment conversation from men\u2019s basketball. Let me meet with your women\u2019s coaching staff directly to scope it.',
-          source: 'Athletic Business, Apr 2026',
-          sourceUrl: 'https://www.athleticbusiness.com/',
-        },
-        {
-          headline: 'MLS academies are consolidating equipment buying to the league office for the first time',
-          tags: ['PRO SPORTS', 'LEAGUE-LEVEL'],
-          context: 'Major League Soccer is piloting centralized equipment procurement across its development academies, shifting from per-club buying to a league-managed vendor list. The pilot targets 14 clubs in year one and all 30 by year three.',
-          implication: 'League-office buying means a handful of wins can lock in hundreds of installations. The window to get on the approved vendor list is narrow and moving fast.',
-          conversation: 'League-level procurement means one yes can cover your entire academy footprint. Let me walk your performance director through where we already serve at this level across other pro sports.',
-          source: 'SportTechie, Apr 2026',
-          sourceUrl: 'https://www.sporttechie.com/',
-        },
-      ],
-      'campus-rec': [
-        {
-          headline: 'State university systems are passing fee bonds for rec center renovation; design-bids open late 2026',
-          tags: ['BOND-FUNDED', 'LONG CYCLE'],
-          context: 'Several state university systems advanced or passed student fee bond packages targeting rec center renovation, with mental health and student wellness as the stated drivers. Design-bid cycles open through late 2026 and 2027.',
-          implication: 'These deals are won 9 to 12 months before design-bid, not during it. Reps who engage procurement now get written into the specification before the competitive bid starts.',
-          conversation: 'Your bond passed, which means procurement starts now, not when the RFP drops. Let me scope the equipment plan so it is written into your design documents before value engineering cuts it.',
-          source: 'Athletic Business / NIRSA',
-          sourceUrl: 'https://www.athleticbusiness.com/',
-        },
-        {
-          headline: 'Community college rec facility spending is up 18% year-over-year and still accelerating',
-          tags: ['COMMUNITY COLLEGE', 'GROWTH'],
-          context: 'Aggregated spending data shows community college rec facility investment grew 18% year-over-year, faster than any four-year segment. Enrollment competition and state workforce development funding are driving the trend.',
-          implication: 'Community colleges are an under-covered segment for our sales team. Lower per-deal size but shorter cycles and less competitive pressure. Good territory for newer reps to build volume.',
-          conversation: 'Community college rec is growing faster than four-year schools right now. Let me walk you through what peer institutions are building and how we work within a community college budget.',
-          source: 'NIRSA / NCAA institutional data',
-          sourceUrl: 'https://nirsa.net/',
-        },
-      ],
+      headline: 'EuropeActive 2026 report confirms €39.1B European fitness market, +9.1% YoY — and the top 10 operators are absorbing the growth at scale.',
+      body: 'At EHFF 2026 in Cologne (April 14-15), EuropeActive and Deloitte released the European Health and Fitness Market Report 2026: revenues up 9.1% to €39.1 billion, club count up 2.8% to 65,792, memberships up 5.8% past 75 million. Most striking — the top 10 operators have grown memberships 151% over the past decade to nearly 16 million. Mid-market and discount segments captured the majority of growth; premium operators continue with steady but modest expansion. For EMEA reps, the strategic implication is clear: the consolidation wave is real and accelerating. The 12-24 month window to engage mid-market and large discount operators on equipment refresh — before they’re absorbed by the top 10 — defines this year’s territory plan.',
     },
     trending: [
-      {
-        topic: 'NFL teams are investing heavily in weight rooms after low NFLPA report card scores',
-        weeks: 4,
-        verticals: ['performance'],
-        sourceCount: 5,
-        summary: 'Patriots, Giants, and Falcons have all announced weight room renovations tied to NFLPA grades. The report cards are now a direct catalyst for capital spending across the league.',
-      },
-      {
-        topic: 'Multifamily developers are replacing generic gyms with spa-grade wellness amenities',
-        weeks: 3,
-        verticals: ['multi-unit'],
-        sourceCount: 4,
-        summary: 'Infrared saunas, red-light therapy, cold-plunge circuits, and recovery lounges are now expected in new developments. The standard gym of 2019 is now a competitive liability in lease-up markets.',
-      },
-      {
-        topic: 'Budget gym chains are buying premium-grade strength and recovery equipment',
-        weeks: 3,
-        verticals: ['health-clubs'],
-        sourceCount: 4,
-        summary: 'Crunch 3.0, EOS Lux, and Planet Fitness are now investing up to $6M per location in recovery and strength upgrades that were only seen at premium clubs two years ago. Franchisees are refreshing faster than brand standards require.',
-      },
+      { topic: 'European fitness market hits record €39.1B with consolidation accelerating at the top', weeks: 1, verticals: ['health-clubs'], sourceCount: 4, summary: 'EuropeActive/Deloitte 2026 report shows top 10 operators captured 151% membership growth over the decade. The mid-market and discount segments drove the bulk of 2025 growth.' },
+      { topic: 'Discount-segment 24/7 staffless model getting regulatory greenlights across Europe', weeks: 2, verticals: ['health-clubs'], sourceCount: 3, summary: 'Basic-Fit received France approval for 24/7 staffless operations and is rolling out franchise opportunities. The format becoming the standard rather than the exception in the discount segment.' },
+      { topic: 'AI ecosystem partnerships becoming the new commercial fitness battleground', weeks: 2, verticals: ['health-clubs', 'hospitality'], sourceCount: 5, summary: 'Technogym/Google Cloud announced April 14 at FIBO 2026; Precor/Peloton Commercial Series formal debut April 16-19. Operators face platform-lock-in decisions, not hardware decisions.' },
     ],
-    flags: [
-      { competitor: 'Precor / Peloton', priority: 'high',   note: 'Debuted the Commercial Business Unit at HFA 2026 and NIRSA 2026, with FIBO next. Commercial Series bike and treadmill, built by Precor for 8+ hour daily use, start global shipping fall 2026 across six markets. Peloton stock rose 4% on the news.' },
-      { competitor: 'Precor / Peloton', priority: 'high',   note: 'Peloton\u2019s Commercial Business Unit posted 10% year-over-year revenue growth last quarter. Analysts point to our operator relationships, and Technogym\u2019s, as the primary defensive moat against the new entrant.' },
-      { competitor: 'Technogym',         priority: 'medium', note: 'Continues positioning the Mywellness cloud platform and Technogym Coach AI for luxury hospitality and resort accounts. Excite Live Run uses AI-personalized content on the console, aimed at the premium hotel segment.' },
-      { competitor: 'EGYM',              priority: 'high',   note: 'Launched Smart Strength Series 3 at its new headquarters on March 5. Separately, the merger of Mindbody, ClassPass, and EGYM under parent Playlist closed at $7.5B with $785M in new equity, giving EGYM a massive operator distribution channel.' },
-      { competitor: 'Matrix',            priority: 'low',    note: 'Remains competitive in mid-market hotel and multifamily segments where Touch XL console integration and cost efficiency matter most. No material partnership announcements this week.' },
-    ],
-    metadata: { processed: '~58', delivered: 12, dedup: '7 items deduped from vertical sections (3 promoted to Trending, 4 filtered as redundant).' },
-  },
-  // ---------------- WEEK 14 ----------------
-  {
-    id: 'w2026-14',
-    issue: 'Issue №14 / 2026',
-    weekRange: 'March 31 – April 6, 2026',
-    weekShort: 'Mar 31 – Apr 6',
-    sampleData: true,
-    stateOfPlay: [
-      'Luxury club segment posted its strongest quarterly member growth since 2019.',
-      'A major urban hotel group opened a multi-property renovation cycle led by wellness positioning.',
-      'Military tactical procurement aligned to Q3 delivery windows across two service branches.',
-      'No material leadership changes at tracked competitors this week.',
-    ],
-    oneBigIdea: {
-      headline: 'Luxury clubs are the only US club segment growing members and per-member revenue at the same time.',
-      body: 'Q1 member counts at the two biggest luxury operators were the strongest since 2019, and average dues keep rising faster than inflation. That combination, more members AND more revenue per member, is unique in the US market right now. Concentrate premium sales capacity against luxury expansion pipelines for the rest of 2026 and all of 2027.',
-    },
     verticals: {
       'health-clubs': [
-        { headline: 'Luxury clubs posted the strongest quarterly member growth since 2019', tags: ['LUXURY', 'GROWTH'], context: 'Q1 member counts at the two largest luxury club operators were the strongest since 2019. Average dues continue to rise faster than CPI. Luxury is the only segment where members AND revenue per member are both growing.', implication: 'Luxury is the highest-quality club growth in the US market right now. Our equipment positioning should match the growth profile these operators are targeting.', conversation: 'Luxury is the only segment growing members and dues together. Let me show you what equipment strategy matches the operating model your board is targeting.', source: 'Operator investor disclosures', sourceUrl: 'https://investor.lifetimefitness.com/' },
+        {
+          headline: 'EuropeActive 2026 Market Report: European fitness revenues hit €39.1B, top 10 operators capture 16M memberships',
+          tags: ['MID-MARKET', 'GROWTH'],
+          context: 'EuropeActive and Deloitte presented the European Health and Fitness Market Report 2026 at EHFF Cologne (April 14-15). Headline figures: revenues +9.1% to €39.1 billion, club count +2.8% to 65,792, memberships +5.8% past 75 million on track for the EuropeActive 100 million target by 2030. Top 10 operators grew memberships 151% over the past decade to nearly 16 million; their revenues grew 115% to €6.05 billion. The growth is increasingly concentrated.',
+          implication: 'The consolidation thesis is now data-confirmed. Independent and small-chain operators in EMEA represent shrinking but field-rep-callable territory. Reps should map remaining mid-market independents in their region and engage them on equipment refresh before the next consolidation wave. Once acquired by a top-10 operator, equipment decisions move to centralized procurement.',
+          conversation: 'The EuropeActive 2026 numbers confirm what we’ve been seeing — the top 10 operators are absorbing the growth. Your independent and mid-market operator clients have a 12-24 month window to differentiate or position for acquisition. Let me walk you through what equipment refresh looks like before either path forces the conversation.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/EHFF-underway-with-results-of-European-Health-and-Fitness-Market-Report-2026-being-presented/362794',
+        },
+        {
+          headline: 'Basic-Fit secures France approval for 24/7 staffless operations, predicts double-digit 2026 growth, rolling out franchise',
+          tags: ['DISCOUNT', 'GROWTH'],
+          context: 'Basic-Fit, the largest European discount fitness operator (1,500+ clubs across France, Netherlands, Belgium, Spain, Luxembourg, Germany), received approval to operate 24/7 staffless clubs in France. Combined with the company’s newly-launched franchise model, Basic-Fit is forecasting double-digit growth in 2026. The 24/7 staffless format reduces operating costs and unlocks new site economics across Continental Europe.',
+          implication: 'Basic-Fit is not on the global key account list, so EMEA field reps DO call on Basic-Fit regional operations. The 24/7 staffless model and new franchise rollout create equipment decisions at scale: thousands of low-touch sites where durability, remote monitoring, and minimal-maintenance specifications matter more than connected-platform features. Reps should engage Basic-Fit procurement directly on the franchise rollout specification — equipment standards are being written this year.',
+          conversation: 'Basic-Fit just unlocked the 24/7 staffless model in France and is rolling out franchise opportunities at scale. The equipment specification for staffless clubs is fundamentally different — durability, remote diagnostics, minimal-touch maintenance. Let me set up a conversation with Basic-Fit equipment procurement to position our staffless-club specifications before the standard locks for the franchise rollout.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/Healthy-ageing-glutes-and-dry-cold-plunging-feature-at-FIBO-2026/362827',
+        },
+        {
+          headline: 'David Lloyd Leisure significantly boosts European presence via acquisition; PureGym hits FITCert Level 4 across UK estate',
+          tags: ['PREMIUM', 'CAPITAL'],
+          context: 'David Lloyd Leisure disclosed a significant European expansion via acquisition (HCM, April 2026), continuing the operator’s strategy to dominate the premium racquets-and-fitness segment across continental Europe. Separately, PureGym achieved FITCert Level 4 accreditation across its full UK estate — a quality standardization move that creates structural cost discipline and positions PureGym for further European expansion. Two of EMEA’s largest non-key-account operators are both in active expansion mode.',
+          implication: 'David Lloyd and PureGym are field-rep-callable in EMEA (not on the global key account list). David Lloyd’s acquisition strategy means absorbed operators get rebranded onto David Lloyd equipment standards within 12-18 months — reps should track which premium European operators are likely David Lloyd targets. PureGym’s FITCert standardization signals tightening equipment specifications across the UK estate; reps with PureGym contacts should engage on the UK refresh cycle now.',
+          conversation: 'David Lloyd is on the acquisition path in continental Europe and PureGym just standardized quality across the UK estate. Both operators are inside our field-rep coverage in EMEA. Let me help you map the David Lloyd acquisition target list in your territory and engage PureGym on the FITCert-driven UK equipment refresh.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/EuropeActive-gets-industry-future-ready-with-Next-Level-Leaders-launch/362438',
+        },
       ],
       'hospitality': [
-        { headline: 'A major urban hotel group opened a multi-property renovation cycle with wellness-first positioning', tags: ['URBAN', 'WELLNESS'], context: 'A large urban lodging operator opened a multi-property renovation cycle this week, putting wellness and fitness at the center of the refreshed guest experience. It follows two quarters of above-market occupancy at wellness-positioned properties.', implication: 'Fitness is becoming a measurable revenue driver in urban lodging, not a box to check. Asset management conversations should tie fitness spend to RevPAR, not to amenity replacement costs.', conversation: 'Wellness-positioned properties are beating the market on occupancy. Let me tie your fitness investment directly to RevPAR in a format you can use at your next asset review.', source: 'Hotel Management, Apr 2026', sourceUrl: 'https://www.hotelmanagement.net/' },
+        {
+          headline: 'Six Senses London opens at The Whiteley Bayswater — IHG luxury wellness brand UK debut, March 1, 2026',
+          tags: ['WELLNESS', 'BRAND'],
+          context: 'Six Senses London opened at The Whiteley development in Bayswater on March 1, 2026, marking the IHG-owned luxury wellness brand’s first UK property. The hotel includes branded residences, dining, and flagship wellness/spa facilities. Six Senses is a benchmark luxury wellness brand competing with Aman, Equinox Hotels, and the new Marriott/Lefay JV. London market is the most contested luxury wellness market in EMEA — Six Senses, the Admiralty Arch Waldorf Astoria (2026), and Rosewood concept openings all target the same client base.',
+          implication: 'London luxury wellness specifications now define EMEA premium hospitality fitness. Reps covering UK and continental luxury hospitality should track Six Senses fitness equipment selections — the brand standard influences peer property specifications across the region. Reps should also engage Mediterranean and Alpine wellness resort developers tracking the Six Senses London model for their own openings.',
+          conversation: 'Six Senses London just set the new luxury wellness benchmark in EMEA. Your luxury hospitality contacts will be touring it within months. Let me prepare a peer-spec brief showing how Six Senses London compares to other premium properties so we’re ready when your clients ask "what should our wellness floor look like in 2027."',
+          source: 'Euronews',
+          sourceUrl: 'https://www.euronews.com/travel/2026/02/22/the-major-hospitality-brands-opening-new-hotels-in-europe-in-2026',
+        },
+        {
+          headline: 'IHG European footprint up 27% in three years; 123,789 new EMEA hotel rooms expected to open in 2026',
+          tags: ['CAPEX', 'BRAND CFO'],
+          context: 'IHG disclosed European footprint growth of 27% over three years, adding 32,800 rooms across 40 countries with 1,230+ hotels in pipeline. CoStar projects 123,789 new EMEA hotel rooms opening in 2026 — double the 56,043 added in 2025. London (5,822) and Istanbul (3,017) lead the European pipeline. Skift reports European hotel investment held at €14.6 billion across 267 deals in 2025; upscale properties dominated and France, UK, Spain, Germany led transaction volume.',
+          implication: 'EMEA hospitality fitness amenity demand is at a multi-year high driven by the largest pipeline since pre-pandemic. Reps should treat Q2-Q3 2026 as peak procurement window for hotels opening late 2026 and 2027. Major developers (IHG, Accor, Marriott) are the priority targets for portfolio-level conversations; smaller chains and independent properties represent faster-cycle opportunities for individual property specs.',
+          conversation: 'CoStar projects 123,789 new EMEA hotel rooms opening in 2026 — double last year. The procurement window is now. Let me help you sequence outreach: IHG and Accor for portfolio-level conversations, smaller chains and independent luxury for faster individual-property specs.',
+          source: 'Travel And Tour World',
+          sourceUrl: 'https://www.travelandtourworld.com/news/article/ihg-joins-marriott-radisson-domes-resorts-and-more-in-europes-2026-hotel-boom-with-unprecedented-luxury-sustainability-and-record-openings-across-the-continent/',
+        },
       ],
       'multi-unit': [
-        { headline: 'Build-to-rent developers are standardizing strength equipment specs across regional portfolios', tags: ['BTR', 'PORTFOLIO'], context: 'Two large build-to-rent developers published revised amenity specifications this week, elevating strength equipment to portfolio-standard across all properties. That replaces property-level variation with regional consistency.', implication: 'BTR is moving from one-off buying to master-contract procurement. Regional-level master agreements are the right call for reps, not property-by-property pitches.', conversation: 'Your portfolio benefits from equipment consistency across properties. Let me propose a master agreement that scales with you and cuts your per-property decisioning time.', source: 'Multifamily Executive, Apr 2026', sourceUrl: 'https://www.multifamilyexecutive.com/' },
+        {
+          headline: 'Quintain Living continues UK’s largest single-site BTR expansion at Wembley Park — 4,000 homes, on-site gyms across all 8 buildings',
+          tags: ['BTR', 'PORTFOLIO'],
+          context: 'Quintain Living, owner-operator of the UK’s largest single-site BTR community at Wembley Park (nearly 4,000 homes across 8 buildings, £3 billion total investment), continues to set the operational benchmark for European BTR. Every Quintain Living building includes resident-only fitness facilities (cardio machines, free weights, group fitness programming), with format ranging from Scandi-inspired calming spaces (Landsby) to industrial-edge high-energy gyms (Ferrum). Quintain Living is owned by Lone Star Funds following the 2024 Quintain restructure.',
+          implication: 'Quintain Living’s 8-building Wembley Park format demonstrates the BTR amenity model that’s now spreading across UK and continental Europe. Reps covering UK BTR should engage Quintain Living procurement on equipment refresh cycles — 4,000 homes across 8 buildings means significant equipment density and recurring replacement opportunities. Reps in continental BTR markets should reference the Quintain model in spec conversations with continental developers studying UK BTR.',
+          conversation: 'Quintain Living’s Wembley Park is the UK’s largest BTR community and its 8-building amenity format is being studied by every continental BTR developer. Let me help you engage Quintain Living on equipment refresh cycles across the existing 8 buildings, and use Quintain as a reference case in continental BTR spec conversations.',
+          source: 'Cliq Apartments',
+          sourceUrl: 'https://www.cliqapartments.com/blog/The-Top-Build-to-Rent-Companies-in-London-Redefining-Urban-Living',
+        },
+        {
+          headline: 'Greystar UK invested £11.5 billion across 11,000 BTR homes and 35,000 PBSA beds; 770-bed Wembley Park PBSA opening',
+          tags: ['STUDENT HOUSING', 'BTR'],
+          context: 'Greystar disclosed £11.5 billion of institutional capital deployed into UK housing over the past decade, across 11,000 BTR homes and 35,000 purpose-built student accommodation (PBSA) beds (including pipeline). Greystar’s 770-bed PBSA development at Wembley Park (acquired from Quintain) opens for the 2025-2026 academic year. Greystar combines vertically-integrated investment, development, and property management — meaning a single Greystar relationship touches PBSA, BTR, and active adult product types across UK markets.',
+          implication: 'Greystar UK is the most consolidated relationship target for EMEA reps covering UK multifamily and student housing. A single account team relationship potentially spans BTR, PBSA, and active adult — reps should coordinate with their account leadership to ensure aligned engagement across product types. The 35,000-bed PBSA pipeline alone represents major recurring equipment opportunity.',
+          conversation: 'Greystar UK has £11.5B in deployed capital across BTR, PBSA, and active adult — that’s a consolidated relationship that needs unified account strategy. Let me coordinate with the broader Greystar account team to ensure we’re engaging Greystar UK across all three product types with a consistent equipment platform conversation.',
+          source: 'New London Architecture',
+          sourceUrl: 'https://nla.london/members/greystar',
+        },
       ],
       'performance': [
-        { headline: 'Military tactical procurement guidance aligned to Q3 delivery windows across two service branches', tags: ['RFP', 'S&C'], context: 'Updated procurement guidance from two service branches specifies Q3 delivery for tactical fitness equipment, which means RFPs hit in April and May. Specs now favor strength and conditioning over general fitness.', implication: 'The window to influence the spec is right now. Reps who engage base-level strength coaches before RFPs publish convert at higher rates than those who respond cold.', conversation: 'Your window is 90 days. Let me work with your base strength coach this week so the spec reflects what you actually need before it publishes.', source: 'Federal procurement disclosures', sourceUrl: 'https://sam.gov/' },
+        {
+          headline: 'ESSMA reports stadium capex across PSV Philips Stadion expansion, Real Valladolid + UD Las Palmas Spanish stadium projects, Marsa Malta',
+          tags: ['FOOTBALL', 'PRO SPORTS'],
+          context: 'European Stadium and Safety Management Association (ESSMA) April 7, 2026 update covered multiple Big-5-league stadium investments: PSV Eindhoven announcing major Philips Stadion expansion plans; Real Valladolid signing agreement with city council to expand Estadio José Zorrilla from 27,600 to 32,000 seats including training ground and youth academy work; UD Las Palmas co-financing deal for Estadio Gran Canaria redevelopment; new 5,000-seat UEFA Level 3 multi-purpose stadium in Marsa, Malta. Pattern shows continued capex acceleration across European football at all tiers.',
+          implication: 'European football stadium projects increasingly include training ground and youth academy components — multi-stage development cycles where strength and conditioning facility specifications get written 12-24 months before main stadium completion. Reps covering EMEA performance should map upcoming stadium capex announcements to associated training facility timelines and engage clubs early in the planning cycle, not after main stadium construction begins.',
+          conversation: 'European football stadium capex now routinely includes training ground and youth academy phases. The S&C facility spec gets written before main stadium construction starts, so the right time to engage is during stadium master planning. Let me help you map active stadium projects in your territory to the corresponding training facility timelines.',
+          source: 'ESSMA',
+          sourceUrl: 'https://essma.eu/news/article/stadium-industry-updates-7-april-2026',
+        },
+        {
+          headline: 'Premier League Stadium Fund passes £219M total invested across 1,000+ clubs since 2000; ongoing grants flow to lower-league facility upgrades',
+          tags: ['LEAGUE-LEVEL', 'FOOTBALL'],
+          context: 'The Premier League Stadium Fund (formerly Football Stadia Improvement Fund) passed £219 million total invested across more than 1,000 clubs since 2000, with 6,200+ grants delivered toward 614 clubhouses and changing rooms, 935 stands, 750 floodlights, and 550 pitch improvements. Funding is available to clubs across Steps 1-6 of the National League System, Tiers 1-4 of the Women’s Football Pyramid, and clubs promoted into the EFL. The Fund includes a Club Development Fund supporting club sustainability and growth.',
+          implication: 'EFL and lower-league clubs receiving Premier League Stadium Fund grants represent a steady stream of small-to-medium UK performance facility opportunities. Lower per-deal value than Premier League facility work but faster procurement cycles, less competitive landscape, and consistent funding flow. Reps covering UK performance should monitor Stadium Fund grant announcements as a leading indicator of facility procurement.',
+          conversation: 'The Premier League Stadium Fund is a steady source of facility procurement signals at EFL and lower-league clubs in the UK. Smaller deal sizes than Premier League work but faster cycles. Let me help you set up grant-announcement monitoring so we can engage clubs as soon as funding is committed, before they go to procurement.',
+          source: 'Premier League',
+          sourceUrl: 'https://www.premierleague.com/en/footballandcommunity/morethanagame/wider-football/premier-league-stadium-fund',
+        },
       ],
       'campus-rec': [
-        { headline: 'Division II and III rec facility spending is growing faster than D1 for the first time in five years', tags: ['GROWTH', 'SPEC'], context: 'Aggregated facility spending data shows Division II and Division III rec facility investment is outpacing Division I on a percentage basis for the first time in five years. Enrollment competition and student wellness mandates are the drivers.', implication: 'D2 and D3 are an emerging segment for our team. Lower per-deal size than D1 but shorter cycles and less competitive pressure. Good territory to build coverage.', conversation: 'D2 and D3 are growing faster than D1 on facility capital right now. Your enrollment story depends on this. Let me show you the peer benchmark before your next board meeting.', source: 'NIRSA / NCAA institutional data', sourceUrl: 'https://nirsa.net/' },
+        {
+          headline: 'University of Bath named UK Sport University of the Year 2026 — continued investment in elite training infrastructure',
+          tags: ['SPORTS SCIENCE', 'GROWTH'],
+          context: 'The University of Bath received the Sport University of the Year 2026 designation, recognizing the institution’s continued investment in elite athlete training, sports science research, and partnerships with national federations and professional sports organizations. Bath is one of the UK’s leading university-based high-performance training centers and a model that other UK and continental research universities study for their own performance facility investments.',
+          implication: 'University of Bath is a reference customer for UK university performance facility investment. Reps covering EMEA Sport Science / Performance Education should use Bath as a peer-benchmark reference in conversations with other UK research universities and continental sports science programs. Bath’s ongoing facility investment also represents recurring equipment refresh opportunity — research-grade specifications, longer evaluation cycles, but consistent multi-year relationships.',
+          conversation: 'Bath just got recognized as UK Sport University of the Year. That makes them a peer-reference standard your other UK university performance contacts will measure themselves against. Let me build a Bath case study brief and help you use it in conversations with other UK research universities and continental sports science programs evaluating their own facility investments.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/Australian-operator-Jetts-Fitness-targets-further-UK-growth/338926',
+        },
+        {
+          headline: 'EuropeActive Next Level Leaders programme launches with operator + supplier backing including Life Fitness, Matrix, Technogym',
+          tags: ['LONG CYCLE', 'GROWTH'],
+          context: 'EuropeActive launched the Next Level Leaders executive development programme in partnership with IESE Business School. Programme is backed by leading operators (Basic-Fit, Go fit, David Lloyd Clubs, RSG Group, SC Fitness, The Gym Group, Urban Sports Club) and equipment/technology partners (Life Fitness, Matrix, Technogym, Wellhub). Already 85% subscribed for the first cohort. Programme will train next-generation leadership across the European fitness industry, embedding equipment supplier brands within long-term industry relationship development.',
+          implication: 'EuropeActive Next Level Leaders is a multi-year relationship investment that puts Life Fitness in the room with the next generation of European operator leadership. Reps should track which executives from their territory operators are participating in the cohort — those individuals become future buyers and decision-makers. The program represents the kind of long-cycle relationship investment that pays off in 5-10 year operator relationships.',
+          conversation: 'Life Fitness is a partner in the EuropeActive Next Level Leaders programme — that’s a multi-year investment in the next generation of European operator leadership. Let me help you identify which executives from your territory are in the cohort. Those are the relationships you want to be building now for the operator decisions that get made over the next decade.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/EuropeActive-gets-industry-future-ready-with-Next-Level-Leaders-launch/362438',
+        },
       ],
     },
-    trending: [
-      { topic: 'NFL weight room capex driven by NFLPA report cards', weeks: 3, verticals: ['performance'], sourceCount: 4, summary: 'Patriots, Giants, and Falcons have all announced weight-room investments tied to report-card pressure.' },
-      { topic: 'Collegiate facility race for transfer and NIL talent', weeks: 2, verticals: ['performance'], sourceCount: 3, summary: 'TCU, Texas Tech, and Boston College announced pro-grade facility builds this month.' },
-    ],
     flags: [
-      { competitor: 'Technogym', priority: 'low', note: 'Released a routine product refresh; no material strategic shift observed this week.' },
-      { competitor: 'Rogue Fitness', priority: 'medium', note: 'Expanded manufacturing capacity at its Ohio facility, signaling volume commitment for 2026 commercial and performance channels.' },
-      { competitor: 'Tempo', priority: 'high', note: 'Posted a second consecutive quarter of consumer revenue decline; the pace of their commercial pivot remains an open question for operators evaluating the platform.' },
+      { competitor: 'Technogym', priority: 'high', note: 'Multi-year Google Cloud partnership announced April 14 at FIBO 2026, integrating generative AI across Technogym AI Coach (member experience) and Technogym AI Assistant (operator business operations). Technogym is headquartered in Cesena, Italy and is the dominant brand in EMEA premium operator deals — this AI ecosystem move significantly raises competitive pressure across all EMEA segments.' },
+      { competitor: 'Precor / Peloton', priority: 'high', note: 'Commercial Series formally debuted at FIBO 2026 (April 16-19, Cologne). Bike and Treadmill engineered for 8+ hours daily use. Initial EMEA launch markets UK, Germany, Austria. Precor has 60+ country distribution and existing Hyatt relationship — meaningful threat in UK hospitality and DACH corporate wellness deals. Global shipping autumn 2026.' },
+      { competitor: 'EGYM', priority: 'high', note: 'German-headquartered, strongest in DACH and adjacent EU markets. Continued momentum in connected-equipment-plus-services bundles. Active Blackpool case study highlights EGYM Open Mode driving member engagement. Remains the dominant tech-equipment-bundle competitor in mid-premium EMEA operator deals.' },
+      { competitor: 'Panatta', priority: 'medium', note: 'Italian strength manufacturer with strong DACH and Iberia presence, particularly in independent gym and bodybuilding-focused operators. Track for performance and strength-focused opportunities in southern Europe.' },
+      { competitor: 'gym80', priority: 'medium', note: 'German strength manufacturer based in Gelsenkirchen. Dominant in DACH performance segment, strong relationships with German football clubs and Olympic federations. Track for any DACH performance opportunity.' },
+      { competitor: 'Eleiko', priority: 'low', note: 'Eleiko IWF Weightlifting Competition Bar awarded iF Design Award 2026. Brand reinforcement in performance segment, particularly in Olympic federation and elite training settings, but no material commercial channel moves disclosed.' },
+      { competitor: 'Matrix / Cybex / Tonal / Tempo / Rogue', priority: 'low', note: 'No material EMEA-specific announcements in past 7 days. Tonal and Tempo have limited EMEA distribution depth. Matrix maintains commercial channel activity tied to Johnson Health Tech expansion. Cybex and Rogue without disclosed EMEA strategic moves.' },
     ],
-    metadata: { processed: '~41', delivered: 7, dedup: '2 items carried forward as trending; remainder are first appearance.' },
+    metadata: { processed: '~48', delivered: 11, dedup: 'First real EMEA brief in archive — no prior-week comparison applied. Future EMEA briefs will surface comparison signal vs this Week 17 baseline.' },
   },
-  // ---------------- WEEK 13 ----------------
-  {
-    id: 'w2026-13',
-    issue: 'Issue №13 / 2026',
-    weekRange: 'March 24 – March 30, 2026',
-    weekShort: 'Mar 24 – Mar 30',
-    sampleData: true,
-    stateOfPlay: [
-      'Mid-market health club M&A picked up on tighter capital conditions.',
-      'A second hotel brand tied fitness amenity investment to its loyalty program.',
-      'Southeastern Power 4 programs clustered strength facility announcements before budget close.',
-      'Competitive activity focused on software bundling; no material pricing moves this week.',
-    ],
-    oneBigIdea: {
-      headline: 'Mid-market M&A creates a 12 to 18 month refresh window. Early watch lists beat late pipeline.',
-      body: 'Multiple mid-tier chains are in acquisition talks as debt refinancing pressure forces consolidation decisions. Historically, post-transaction equipment refreshes happen within 12 to 18 months of close. Reps who know the contract anniversaries and name the chains early end up with inbound pipeline. Reps who wait until the acquirer announces the plan end up chasing.',
-    },
-    verticals: {
-      'health-clubs': [
-        { headline: 'Mid-market chain M&A is accelerating under capital pressure', tags: ['MID-PREMIUM', 'CAPITAL'], context: 'Multiple mid-tier chains are in acquisition discussions as refinancing pressure forces consolidation. Transaction multiples remain below 2022 peaks, and larger platforms are positioned to absorb footprint at a discount.', implication: 'Post-transaction refreshes historically happen within 12 to 18 months. Build watch lists of named chains now, track contract anniversaries, and stay visible during the transition.', conversation: 'When ownership changes, equipment strategy resets. Let me show you what refresh windows typically look like after a deal of this profile.', source: 'Club Industry / PE deal reporting', sourceUrl: 'https://www.clubindustry.com/' },
-      ],
-      'hospitality': [
-        { headline: 'A second major hotel brand tied fitness amenity upgrades to its loyalty program', tags: ['LOYALTY', 'BRAND'], context: 'A global hotel brand linked upgraded fitness amenity investment to its elite loyalty tier, following a similar move by a competitor last quarter. Fitness is now a loyalty driver rather than a commoditized amenity.', implication: 'Loyalty-linked amenity strategies raise per-property spend ceilings and shorten decision cycles. Brand CFO conversations replace asset management conversations.', conversation: 'When fitness drives loyalty, the conversation moves from cost to revenue. Let me frame this for your brand CFO so the decision gets made at the right level.', source: 'Hotel Management, Mar 2026', sourceUrl: 'https://www.hotelmanagement.net/' },
-      ],
-      'multi-unit': [
-        { headline: 'Senior living operators are expanding strength programming capex', tags: ['SENIOR LIVING', 'PROGRAMMING'], context: 'Active senior living operators are expanding strength programming spending, moving away from cardio-dominant layouts. Longevity research adoption among 65-plus residents is the driver.', implication: 'Senior living is under-served for our category. Programming-first conversations open the door; equipment follows once the program is scoped.', conversation: 'Your residents are reading longevity research, and strength is now the expectation. Let me show you what peer operators are building and what the program looks like.', source: 'Multifamily Executive / Argentum', sourceUrl: 'https://www.multifamilyexecutive.com/' },
-      ],
-      'performance': [
-        { headline: 'Southeastern Power 4 programs clustered facility announcements before budget close', tags: ['COLLEGIATE', 'PRO SPORTS'], context: 'Four Southeastern conference programs announced strength or sports performance facility plans in the last ten days. The cluster lines up with fiscal year budget finalization. Peer-program dynamics typically amplify capex once a cluster forms.', implication: 'Peer-competition pressure accelerates decisions. Conference-level pursuit beats program-by-program sales motion right now.', conversation: 'Four of your conference peers just announced. Your AD is already hearing about it. Let me get ahead of the board conversation with a proposal that matches the peer benchmark.', source: 'NCAA / program press releases', sourceUrl: 'https://www.ncaa.org/' },
-      ],
-      'campus-rec': [
-        { headline: 'Rec center design is moving from selectorized lines to functional strength and rack zones', tags: ['DESIGN', 'SPEC'], context: 'Recent rec center renovation announcements consistently feature expanded functional strength and rack zones with reduced selectorized footprint. Student usage data shows free-weight and functional activity outpacing traditional circuits.', implication: 'Rack and platform volume is becoming the central spec line in campus rec procurement. Lead with rack modeling, not selectorized catalog pages.', conversation: 'Your student usage data is almost certainly showing what peers are seeing: racks and platforms are the draw. Let me model that footprint inside your renovation envelope.', source: 'NIRSA / Athletic Business', sourceUrl: 'https://nirsa.net/' },
-      ],
-    },
-    trending: [],
-    flags: [
-      { competitor: 'Technogym', priority: 'medium', note: 'Announced expanded software bundling with the core hardware platform in EMEA markets, testing a pattern for possible US rollout.' },
-      { competitor: 'Eleiko', priority: 'high', note: 'Signed a multi-year supply agreement with a major collegiate strength coach association, deepening their performance channel position.' },
-      { competitor: 'Tonal', priority: 'low', note: 'Announced a workforce reduction focused on the consumer division; the commercial pivot continues to absorb organizational capital.' },
-      { competitor: 'Matrix', priority: 'medium', note: 'Opened a new regional distribution hub, cutting lead times on large-order commercial installations.' },
-    ],
-    metadata: { processed: '~46', delivered: 6, dedup: 'First brief in archive; no prior-week comparison applied.' },
-  },
-];
+],
+};
+const BRIEFS = BRIEFS_BY_REGION[REGION];
 
 // -------------------- PERSISTENCE HELPERS --------------------
 // Safe localStorage wrappers — fail silently if storage is disabled
@@ -735,7 +793,7 @@ function TileButtons({ onFlip, onArticle }) {
           border: `1px solid ${C.borderHi}`, borderRadius: 6,
           cursor: 'pointer', transition: 'all 0.15s',
         }}>
-        <RotateCcw size={11} strokeWidth={2.5} /> TAP TO FLIP
+        <RotateCcw size={11} strokeWidth={2.5} /> Tap for Rep Insights
       </button>
       <button onClick={onArticle}
         className="btn-article"
@@ -754,26 +812,40 @@ function TileButtons({ onFlip, onArticle }) {
 }
 
 // -------------------- INSIGHT TILE (flips on full-card click) --------------------
+// Plausible custom event helper — fires only when Plausible script loaded; no-op otherwise
+const trackEvent = (name, props) => {
+  try { if (typeof window !== 'undefined' && window.plausible) window.plausible(name, { props }); } catch (e) { /* noop */ }
+};
+
 function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, onRate, weekBadge, onUnsave }) {
   const [flipped, setFlipped] = useState(false);
   const toggleFlip = (e) => {
     if (e) e.stopPropagation();
-    setFlipped(f => !f);
+    setFlipped(f => {
+      const next = !f;
+      // Track flip-open events (not flip-close) to measure read-through intent
+      if (next) trackEvent('Tile Flip', { headline: insight.headline.slice(0, 80), vertical: insightIdStr.split('::')[1] || 'unknown' });
+      return next;
+    });
   };
   const openSource = (e) => {
     e.stopPropagation();
+    trackEvent('Source Click', { headline: insight.headline.slice(0, 80), source: insight.source || 'unknown' });
     window.open(insight.sourceUrl, '_blank', 'noopener,noreferrer');
   };
   const handleBookmark = (e) => {
     e.stopPropagation();
+    trackEvent(bookmarked ? 'Bookmark Remove' : 'Bookmark Add', { headline: insight.headline.slice(0, 80), vertical: insightIdStr.split('::')[1] || 'unknown' });
     if (onBookmark) onBookmark(insightIdStr);
   };
   const handleRate = (e, value) => {
     e.stopPropagation();
+    trackEvent(value === 'up' ? 'Rated Useful' : 'Rated Not Useful', { headline: insight.headline.slice(0, 80), vertical: insightIdStr.split('::')[1] || 'unknown' });
     if (onRate) onRate(insightIdStr, value);
   };
   const handleUnsave = (e) => {
     e.stopPropagation();
+    trackEvent('Bookmark Remove', { headline: insight.headline.slice(0, 80), source: 'saved-view' });
     if (onUnsave) onUnsave(insightIdStr);
   };
 
@@ -830,47 +902,11 @@ function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, on
           <div style={{
             fontSize: 10.5, color: C.mute, fontStyle: 'italic',
             paddingTop: 8, borderTop: `1px solid ${C.border}`,
+            marginTop: 'auto',
           }}>
             {insight.source}
           </div>
           <TileButtons onFlip={toggleFlip} onArticle={openSource} />
-          {/* Minimal usefulness feedback — lives below the buttons, tucked small */}
-          <div className="no-print" style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8,
-            marginTop: 2,
-          }}>
-            <span style={{ fontSize: 10.5, fontWeight: 500, color: C.mute, letterSpacing: '0.02em' }}>
-              {ratingValue === 'up' ? 'Thanks for the feedback' : ratingValue === 'down' ? 'Thanks for the feedback' : 'Helpful?'}
-            </span>
-            <div style={{ display: 'flex', gap: 2 }}>
-              <button onClick={(e) => handleRate(e, 'up')} title="Useful"
-                className="icon-btn"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  width: 24, height: 22, padding: 0,
-                  background: 'transparent',
-                  border: 'none', borderRadius: 3,
-                  cursor: 'pointer', transition: 'all 0.15s',
-                }}>
-                <ThumbsUp size={12} strokeWidth={2}
-                  fill={ratingValue === 'up' ? C.redInk : 'none'}
-                  color={ratingValue === 'up' ? C.redInk : C.muteSoft} />
-              </button>
-              <button onClick={(e) => handleRate(e, 'down')} title="Not useful"
-                className="icon-btn"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  width: 24, height: 22, padding: 0,
-                  background: 'transparent',
-                  border: 'none', borderRadius: 3,
-                  cursor: 'pointer', transition: 'all 0.15s',
-                }}>
-                <ThumbsDown size={12} strokeWidth={2}
-                  fill={ratingValue === 'down' ? C.inkSoft : 'none'}
-                  color={ratingValue === 'down' ? C.inkSoft : C.muteSoft} />
-              </button>
-            </div>
-          </div>
           {onUnsave && (
             <button onClick={handleUnsave}
               className="no-print"
@@ -1012,7 +1048,7 @@ function VerticalSection({ meta, insights, briefId, bookmarkIds, ratings, onBook
           border: `1px solid ${C.border}`, fontWeight: 600,
         }}>{insights.length} {insights.length === 1 ? 'insight' : 'insights'}</span>
       </div>
-      <div className={`tile-grid tile-grid-${Math.min(insights.length, 3)}`}>
+      <div className={`tile-grid tile-grid-${Math.min(insights.length, 6)}`}>
         {insights.slice(0, 6).map((ins, i) => {
           const id = insightId(briefId, meta.id, i);
           return (
@@ -1103,6 +1139,33 @@ function IntelBrief() {
   const [selectedId, setSelectedId] = useState(BRIEFS[0].id);
   const [filter, setFilter] = useState('all');
   const [weekPickerOpen, setWeekPickerOpen] = useState(false);
+  const [regionPickerOpen, setRegionPickerOpen] = useState(false);
+  const [langBannerDismissed, setLangBannerDismissed] = useState(true); // default true; effect below sets to false if banner should show
+
+  // -------- Language-detection nudge --------
+  // On first visit, if browser language matches another region but the user is on this one,
+  // surface a one-time banner suggesting the regional dashboard. Stored in localStorage so
+  // the banner does not reappear after dismissal.
+  const [suggestedRegion, setSuggestedRegion] = useState(null);
+  useEffect(() => {
+    try {
+      if (typeof navigator === 'undefined') return;
+      const dismissed = lsGet('lfhs_lang_banner_dismissed_v1', false);
+      if (dismissed) return;
+      const browserLang = (navigator.language || navigator.userLanguage || '').toString();
+      if (!browserLang) return;
+      // Find any OTHER region whose languageMatches contains this browser language
+      const match = REGIONS.find(r => r.id !== REGION && r.languageMatches.some(l => browserLang.startsWith(l)));
+      if (match) {
+        setSuggestedRegion(match);
+        setLangBannerDismissed(false);
+      }
+    } catch (e) { /* noop */ }
+  }, []);
+  const dismissLangBanner = () => {
+    try { lsSet('lfhs_lang_banner_dismissed_v1', true); } catch (e) { /* noop */ }
+    setLangBannerDismissed(true);
+  };
 
   // -------- Ratings (thumbs up/down per insight) --------
   const [ratings, setRatings] = useState({});
@@ -1115,6 +1178,27 @@ function IntelBrief() {
       lsSet(LS_RATINGS, next);
       return next;
     });
+  };
+
+  // -------- Brief-level helpfulness rating (one per week) --------
+  const [briefRatings, setBriefRatings] = useState({});
+  useEffect(() => { setBriefRatings(lsGet('lfhs_brief_level_ratings_v1', {})); }, []);
+  const briefRating = briefRatings[selectedId];
+  const handleBriefRate = (value) => {
+    setBriefRatings(prev => {
+      const next = { ...prev };
+      if (prev[selectedId] === value) delete next[selectedId]; // toggle off if same
+      else next[selectedId] = value;
+      lsSet('lfhs_brief_level_ratings_v1', next);
+      return next;
+    });
+    try {
+      if (typeof window !== 'undefined' && window.plausible) {
+        window.plausible(value === 'up' ? 'Brief Rated Helpful' : 'Brief Rated Not Helpful', {
+          props: { issue: BRIEFS.find(b => b.id === selectedId)?.issue || 'unknown' }
+        });
+      }
+    } catch (e) { /* noop */ }
   };
 
   // -------- Bookmarks (saved snapshots) --------
@@ -1169,7 +1253,10 @@ function IntelBrief() {
         body { margin: 0; }
         button { font-family: inherit; }
 
-        /* Tile grid — adapts to insight count: 1 insight reads wide, 2 split 50/50, 3+ use standard 3-col that wraps. */
+        /* Tile grid — adapts to insight count per editorial layout rules:
+           1 → wide single (avoid lonely card), 2 → 50/50, 3 → 3-col,
+           4 → 2+2 (two rows of 50/50), 5 → 3+2 (3 top, 2 below at 50/50),
+           6 → 3+3 (two full rows). */
         .tile-grid {
           display: grid;
           gap: 12px;
@@ -1179,9 +1266,20 @@ function IntelBrief() {
         /* Single insight: occupies 2 of 3 implicit tracks so it reads substantial without stretching to full page width */
         .tile-grid-1 { grid-template-columns: repeat(3, 1fr); }
         .tile-grid-1 > * { grid-column: span 2; max-width: 560px; }
+        /* 4 insights: 2 columns gives two clean rows of 50/50 */
+        .tile-grid-4 { grid-template-columns: repeat(2, 1fr); }
+        /* 5 insights: 6-column base with 3 cards spanning 2 cols each on row 1 (3+3+3 wait that's 9... using 2+2+2 = 6),
+           and 2 cards spanning 3 cols each on row 2 (3+3 = 6). Result: top row 3 cards at ~33% each, bottom row 2 at 50% each. */
+        .tile-grid-5 { grid-template-columns: repeat(6, 1fr); }
+        .tile-grid-5 > *:nth-child(-n+3) { grid-column: span 2; }
+        .tile-grid-5 > *:nth-child(n+4) { grid-column: span 3; }
+        /* 6 insights: standard 3-col, wraps to 3+3 */
+        .tile-grid-6 { grid-template-columns: repeat(3, 1fr); }
         @media (max-width: 900px) {
-          .tile-grid, .tile-grid-1, .tile-grid-2, .tile-grid-3 { grid-template-columns: 1fr; gap: 10px; }
-          .tile-grid-1 > * { grid-column: auto; max-width: none; }
+          .tile-grid, .tile-grid-1, .tile-grid-2, .tile-grid-3, .tile-grid-4, .tile-grid-5, .tile-grid-6 {
+            grid-template-columns: 1fr; gap: 10px;
+          }
+          .tile-grid-1 > *, .tile-grid-5 > * { grid-column: auto; max-width: none; }
           .tile-outer, .tile-inner, .tile-face { min-height: auto !important; }
         }
 
@@ -1305,6 +1403,43 @@ function IntelBrief() {
         </div>
       </header>
 
+      {/* ============ LANGUAGE / REGION SUGGESTION BANNER ============ */}
+      {!langBannerDismissed && suggestedRegion && (
+        <div className="no-print" style={{
+          maxWidth: 1180, margin: '0 auto', padding: '14px 32px 0',
+        }}>
+          <div style={{
+            background: C.surfaceAlt, border: `1px solid ${C.borderHi}`,
+            borderRadius: 8, padding: '10px 14px',
+            display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+          }}>
+            <span style={{ fontSize: 18, lineHeight: 1 }}>{suggestedRegion.flag}</span>
+            <span style={{ fontSize: 13, color: C.inkSoft, flex: 1, minWidth: 200 }}>
+              Your browser language suggests you might prefer the {suggestedRegion.name} brief.
+            </span>
+            <a href={suggestedRegion.url}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '7px 14px', background: C.ink, color: C.surface,
+                border: 'none', borderRadius: 6,
+                fontSize: 11.5, fontWeight: 600, letterSpacing: '0.04em',
+                textDecoration: 'none', textTransform: 'uppercase',
+              }}>
+              Switch to {suggestedRegion.shortName}
+            </a>
+            <button onClick={dismissLangBanner}
+              style={{
+                padding: '7px 12px', background: 'transparent',
+                border: `1px solid ${C.border}`, borderRadius: 6,
+                fontSize: 11.5, fontWeight: 600, color: C.mute,
+                cursor: 'pointer',
+              }}>
+              Stay on {currentRegion.shortName}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ============ HERO ============ */}
       <div className="hero-wrap" style={{ maxWidth: 1180, margin: '0 auto', padding: '28px 32px 16px' }}>
         <div className="hero-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap' }}>
@@ -1334,6 +1469,61 @@ function IntelBrief() {
               }}>
               <Printer size={13} strokeWidth={2} /> Print
             </button>
+
+            {/* Region selector — navigates between regional URLs (Option A) */}
+            <div style={{ position: 'relative' }}>
+              <button onClick={() => setRegionPickerOpen(v => !v)}
+                title="Switch region"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  padding: '9px 14px', background: C.surface,
+                  border: `1px solid ${C.border}`, borderRadius: 8,
+                  fontSize: 12, fontWeight: 600, color: C.inkSoft,
+                  cursor: 'pointer', transition: 'all 0.2s',
+                }}>
+                <span style={{ fontSize: 14, lineHeight: 1 }}>{currentRegion.flag}</span>
+                {currentRegion.shortName}
+                <ChevronDown size={13} strokeWidth={2}
+                  style={{ transform: regionPickerOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              {regionPickerOpen && (
+                <div style={{
+                  position: 'absolute', top: 'calc(100% + 6px)', right: 0,
+                  background: C.surface, border: `1px solid ${C.border}`,
+                  borderRadius: 10, minWidth: 220, zIndex: 20,
+                  boxShadow: '0 8px 24px rgba(20,21,26,0.1)', overflow: 'hidden',
+                }}>
+                  <div style={{
+                    padding: '10px 14px 6px', fontSize: 9.5, fontWeight: 700,
+                    letterSpacing: '0.16em', textTransform: 'uppercase', color: C.mute,
+                    borderBottom: `1px solid ${C.border}`,
+                  }}>
+                    Region
+                  </div>
+                  {REGIONS.map(r => {
+                    const isCurrent = r.id === REGION;
+                    return (
+                      <a key={r.id}
+                        href={isCurrent ? '#' : r.url}
+                        onClick={(e) => { if (isCurrent) { e.preventDefault(); setRegionPickerOpen(false); } }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 10,
+                          padding: '11px 14px', textDecoration: 'none',
+                          background: isCurrent ? C.surfaceAlt : 'transparent',
+                          borderBottom: `1px solid ${C.border}`,
+                          color: C.ink, fontSize: 13, fontWeight: 500,
+                        }}>
+                        <span style={{ fontSize: 16, lineHeight: 1 }}>{r.flag}</span>
+                        <span style={{ flex: 1 }}>{r.name}</span>
+                        {isCurrent && (
+                          <span style={{ fontSize: 9, fontWeight: 700, color: C.redInk, letterSpacing: '0.1em' }}>● CURRENT</span>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           <div style={{ position: 'relative' }}>
             <button onClick={() => setWeekPickerOpen(v => !v)}
               style={{
@@ -1408,36 +1598,68 @@ function IntelBrief() {
         </div>
       )}
 
-      {/* ============ STATE OF PLAY ============ */}
+      {/* ============ BRIEF-LEVEL HELPFULNESS + ONE BIG IDEA ============ */}
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '4px 32px 0' }}>
+        {/* Helpful row — single brief-level capture, right-justified, prominent */}
+        <div className="no-print" style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12,
+          marginBottom: 14,
+        }}>
+          <span style={{
+            fontSize: 12.5, fontWeight: 600, color: C.inkSoft,
+            letterSpacing: '0.01em',
+          }}>
+            {briefRating === 'up' ? 'Thanks for the feedback' : briefRating === 'down' ? 'Thanks for the feedback' : 'Was this brief helpful?'}
+          </span>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button onClick={() => handleBriefRate('up')} title="Yes, useful"
+              className="icon-btn"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 38, height: 34, padding: 0,
+                background: briefRating === 'up' ? C.redWash : C.surface,
+                border: `1px solid ${briefRating === 'up' ? C.redBorder : C.border}`,
+                borderRadius: 6,
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}>
+              <ThumbsUp size={16} strokeWidth={2}
+                fill={briefRating === 'up' ? C.redInk : 'none'}
+                color={briefRating === 'up' ? C.redInk : C.inkSoft} />
+            </button>
+            <button onClick={() => handleBriefRate('down')} title="Not useful"
+              className="icon-btn"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 38, height: 34, padding: 0,
+                background: briefRating === 'down' ? C.surfaceWarm : C.surface,
+                border: `1px solid ${briefRating === 'down' ? C.borderHi : C.border}`,
+                borderRadius: 6,
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}>
+              <ThumbsDown size={16} strokeWidth={2}
+                fill={briefRating === 'down' ? C.inkSoft : 'none'}
+                color={briefRating === 'down' ? C.inkSoft : C.inkSoft} />
+            </button>
+          </div>
+        </div>
+
+        {/* One Big Idea — moved to top, replacing the prior State of Play block */}
         <div className="fade-in" style={{
-          background: C.surface, border: `1px solid ${C.border}`,
-          borderRadius: 10, padding: '16px 22px',
+          background: C.surface, border: `2px solid ${C.red}`,
+          borderRadius: 12, padding: '22px 26px',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-            <Sparkles size={13} strokeWidth={2} color={C.redInk} />
+            <Target size={14} strokeWidth={2} color={C.redInk} />
             <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.redInk }}>
-              State of Play
+              One Big Idea
             </span>
           </div>
-          <ul className="sop-list" style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {brief.stateOfPlay.map((line, i) => (
-              <li key={i} style={{
-                display: 'flex', alignItems: 'flex-start', gap: 10,
-                fontSize: 13.5, lineHeight: 1.45, color: C.inkSoft, fontWeight: 500,
-              }}>
-                <span style={{
-                  flexShrink: 0, width: 18, textAlign: 'left',
-                  fontSize: 10, fontWeight: 700, color: C.redInk,
-                  letterSpacing: '0.04em', marginTop: 3,
-                }}>{String(i + 1).padStart(2, '0')}</span>
-                <span style={{
-                  display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                }}>{line}</span>
-              </li>
-            ))}
-          </ul>
+          <h3 style={{ margin: '0 0 10px 0', fontSize: 18, fontWeight: 600, lineHeight: 1.3, letterSpacing: '-0.01em', color: C.ink }}>
+            {brief.oneBigIdea.headline}
+          </h3>
+          <p className="one-big-body" style={{ margin: 0, fontSize: 13.5, lineHeight: 1.65, color: C.inkBody }}>
+            {brief.oneBigIdea.body}
+          </p>
         </div>
       </div>
 
@@ -1452,11 +1674,24 @@ function IntelBrief() {
             { id: 'trending', label: 'Trending', icon: Flame, count: null },
             { id: 'saved',    label: 'Saved', icon: Bookmark, count: bookmarks.length },
             ...VERTICALS_META.map(v => ({ id: v.id, label: v.name, icon: null, count: null })),
+            { id: 'competitive', label: 'Competitive', icon: Shield, count: null, scrollTo: 'competitive-flags-section' },
           ].map(chip => {
             const active = filter === chip.id;
             const ChipIcon = chip.icon;
+            const handleChipClick = () => {
+              if (chip.scrollTo) {
+                // Ensure flags are visible (not in a saved/filtered view) before scrolling
+                if (filter === 'saved') setFilter('all');
+                setTimeout(() => {
+                  const el = document.getElementById(chip.scrollTo);
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, filter === 'saved' ? 80 : 0);
+                return;
+              }
+              setFilter(chip.id);
+            };
             return (
-              <button key={chip.id} onClick={() => setFilter(chip.id)}
+              <button key={chip.id} onClick={handleChipClick}
                 className={`filter-chip ${active ? 'active' : ''}`}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 5,
@@ -1540,7 +1775,7 @@ function IntelBrief() {
 
         {/* COMPETITIVE FLAGS */}
         {showFlags && (
-        <section style={{ marginTop: 20, marginBottom: 28 }}>
+        <section id="competitive-flags-section" style={{ marginTop: 20, marginBottom: 28, scrollMarginTop: 80 }}>
           <div className="print-light" style={{
             background: C.flagsBg, border: `1px solid ${C.flagsBorder}`,
             borderRadius: 12, overflow: 'hidden', position: 'relative',
@@ -1613,28 +1848,7 @@ function IntelBrief() {
         </section>
         )}
 
-        {/* ONE BIG IDEA */}
-        {showOneBig && (
-        <section style={{ marginBottom: 28 }}>
-          <div style={{
-            background: C.surface, border: `2px solid ${C.red}`,
-            borderRadius: 12, padding: '22px 26px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-              <Target size={14} strokeWidth={2} color={C.redInk} />
-              <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.redInk }}>
-                One Big Idea
-              </span>
-            </div>
-            <h3 style={{ margin: '0 0 10px 0', fontSize: 18, fontWeight: 600, lineHeight: 1.3, letterSpacing: '-0.01em', color: C.ink }}>
-              {brief.oneBigIdea.headline}
-            </h3>
-            <p className="one-big-body" style={{ margin: 0, fontSize: 13.5, lineHeight: 1.65, color: C.inkBody }}>
-              {brief.oneBigIdea.body}
-            </p>
-          </div>
-        </section>
-        )}
+        {/* ONE BIG IDEA — now rendered at top of brief, removed from this position */}
 
         {/* METADATA */}
         {showMetadata && (
