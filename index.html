@@ -169,20 +169,6 @@ const Trash2 = (p) => _Icon({...p, children: [
   _path('M14 11v6'),
 ]});
 
-const Trophy = (p) => _Icon({...p, children: [
-  _path('M6 9H4.5a2.5 2.5 0 0 1 0-5H6'),
-  _path('M18 9h1.5a2.5 2.5 0 0 0 0-5H18'),
-  _path('M4 22h16'),
-  _path('M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'),
-  _path('M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'),
-  _path('M18 2H6v7a6 6 0 0 0 12 0V2Z'),
-]});
-
-const ArrowRight = (p) => _Icon({...p, children: [
-  _path('M5 12h14'),
-  _path('m12 5 7 7-7 7'),
-]});
-
 
 
 
@@ -255,8 +241,9 @@ const VERTICALS_META_BY_REGION = {
     { id: 'health-clubs', name: 'Health Clubs',   abbr: 'HC', Icon: Building2 },
     { id: 'hospitality',  name: 'Hospitality',    abbr: 'HF', Icon: Hotel },
     { id: 'multi-unit',   name: 'Multi-Unit Housing', abbr: 'MU', Icon: Home },
-    { id: 'performance',  name: 'Performance / Athletics', abbr: 'PA', Icon: Dumbbell },
     { id: 'campus-rec',   name: 'Campus Recreation', abbr: 'CR', Icon: GraduationCap },
+    { id: 'military',     name: 'Tactical / Military Performance', abbr: 'TM', Icon: Shield },
+    { id: 'performance',  name: 'Performance / Athletics', abbr: 'PA', Icon: Dumbbell },
   ],
   emea: [
     { id: 'health-clubs', name: 'Health Clubs',   abbr: 'HC', Icon: Building2 },
@@ -277,6 +264,212 @@ const vMeta = (id) => VERTICALS_META.find(v => v.id === id);
 // EMEA sourcing pipeline produces a Week 16 brief.
 const BRIEFS_BY_REGION = {
   us: [
+  {
+    id: 'w2026-18',
+    issue: 'Issue \u2116\u202f18 / 2026',
+    weekRange: 'April 27 \u2013 May 3, 2026',
+    weekShort: 'Apr 27 \u2013 May 3',
+    stateOfPlay: [
+      'Connected fitness content unbundled from hardware this week: Spotify launched a fitness category April 27 with 1,400+ Peloton classes; Zwift acquired indoor cycling platform Rouvy on April 29.',
+      'Cleveland Browns broke ground April 30 on a $2.7B domed stadium in Brook Park anchoring a $1B mixed-use district \u2014 the largest single-day NFL facility commitment of 2026 to date.',
+      'Top Crunch franchisee Fit Fusion announced plans for 30 clubs by year-end, nearly doubling its 16-club base across Chicago, Denver, Las Vegas, and Cleveland.',
+      'David Lloyd / Aspria deal officially closed April 23, expanding David Lloyd to 40 continental European clubs and reinforcing the European premium consolidation thesis.',
+    ],
+    oneBigIdea: {
+      headline: 'Two deals in three days redrew the fitness content map. The hardware question now sits downstream of the platform question.',
+      body: 'Spotify and Peloton launched a global content partnership April 27 making 1,400+ instructor-led classes available to Spotify Premium subscribers across nine countries. Two days later, Zwift acquired indoor cycling platform Rouvy, combining gamified racing with video-based real-route content under one trainer ecosystem. Both deals signal the same direction: content owners want global reach independent of hardware, and platform owners want depth without manufacturing risk. For operators evaluating equipment capex in 2026, the strategic question is no longer just which hardware. It is which content ecosystems members will expect to find on the floor when they walk in. Reps who lead with platform interoperability and content-readiness hold the conversation. Reps who lead with equipment specs alone lose it.',
+    },
+    trending: [
+      { topic: 'AI-ecosystem and content-platform competition becoming the strategic battleground', weeks: 3, verticals: ['health-clubs', 'hospitality', 'multi-unit', 'campus-rec'], sourceCount: 6, summary: 'Spotify-Peloton (1,400+ classes, April 27), Zwift-Rouvy acquisition (April 29), Technogym/Google Cloud agentic AI, EGYM Smart Strength Series 3, and Matrix/seca medical AI alliance all hitting market within a 60-day window. The platform-lock-in decision now defines major capex, not the hardware decision.' },
+      { topic: 'Recovery and wellness amenity migration into commercial fitness across hospitality, multifamily, and premium clubs', weeks: 4, verticals: ['health-clubs', 'hospitality', 'multi-unit'], sourceCount: 4, summary: 'Hyatt-Peloton (nearly 400 US hotels), Hilton-Hyperice Wellness Rooms, LyvWell at Harmony Fitwel-certified BTR opening, and continued NAA / Multifamily Executive coverage all confirm the same shift: cold plunge, sauna, infrared, red-light recovery, and content-enabled equipment integrated alongside cardio and strength is becoming the new amenity baseline across commercial fitness verticals.' },
+      { topic: 'Pro-sports stadium capex wave accelerating into Q2 2026', weeks: 2, verticals: ['performance'], sourceCount: 4, summary: 'Cleveland Browns Brook Park groundbreaking (April 30, $2.7B stadium plus $1B mixed-use district), Pittsburgh Steelers/Pirates new lease talks following 2026 NFL Draft (April 23), and Oakland A\u2019s Las Vegas ballpark milestones (April 22). Pro-sports facility capex is moving from approval to construction phase across multiple metros simultaneously.' },
+    ],
+    verticals: {
+      'health-clubs': [
+        {
+          headline: 'Spotify launches fitness category April 27 with 1,400+ Peloton classes ad-free for Premium subscribers across nine countries',
+          tags: ['DIGITAL', 'PARTNERSHIP'],
+          context: 'Peloton and Spotify announced a global content partnership on April 27 making 1,400+ instructor-led classes available inside Spotify\u2019s newly launched fitness category for Premium subscribers in the US, UK, Canada, Mexico, Australia, Germany, Austria, Sweden, and Spain. Classes span strength, Pilates, barre, yoga, stretching, meditation, floor cardio, and outdoor runs and walks. Bike and tread workouts are excluded. Free Spotify users get a separate set of curated videos and music playlists from independent creators.',
+          implication: 'The fitness content layer is unbundling from connected fitness hardware. Operators in health clubs, hospitality, and multifamily will increasingly face members who already have Peloton-quality content on their phones via Spotify. The amenity question shifts from \u201cwhat content do you offer in our space\u201d to \u201chow does our equipment integrate with content the member already pays for.\u201d Reps should lead with content interoperability, not content exclusivity.',
+          conversation: 'Members are walking into facilities now with 1,400+ Peloton classes already on their phones via Spotify. The conversation has shifted from content exclusivity to content interoperability. Let me help you build the talk track that anchors equipment capex around content readiness rather than content lock-in \u2014 it is the only place this conversation can land that does not get undercut by a Spotify subscription.',
+          source: 'Peloton Investor Relations',
+          sourceUrl: 'https://investor.onepeloton.com/news-releases/news-release-details/pelotons-world-class-content-fuel-spotifys-new-fitness-category',
+        },
+        {
+          headline: 'Zwift completes strategic acquisition of indoor cycling platform Rouvy on April 29, consolidating real-route video and gamified virtual cycling under one ecosystem',
+          tags: ['DIGITAL', 'CAPITAL'],
+          context: 'Zwift announced April 29 the completed acquisition of Czech-based Rouvy, the indoor cycling platform with 300,000+ subscribers and 1,800+ HD real-world video routes. Both platforms continue independent operations with separate roadmaps and subscription packages. Zwift Ready smart trainers and the Zwift Ride frame now work with Rouvy. Rouvy itself had previously acquired FulGaz (Ironman platform) in January 2025 and Bkool. Combined, Zwift now controls three of the four largest indoor cycling platforms.',
+          implication: 'Indoor cycling platform consolidation is accelerating, mirroring the Spotify-Peloton content unbundling. For operators in hospitality and multifamily where digital cycling content is bundled into fitness amenities, the platform decision is now a 1-vendor decision in 80%+ of the indoor cycling market. Reps should expect equipment specs to increasingly require Zwift Ready or Rouvy compatibility on the spec sheet by default.',
+          conversation: 'Indoor cycling platforms have consolidated into a near-monopoly. Zwift-Rouvy compatibility is becoming a default spec line, not a feature. Let me help you frame the equipment story around platform-readiness so it is the open standard, not the closed standard, you are selling.',
+          source: 'Zwift Newsroom',
+          sourceUrl: 'https://news.zwift.com/en-WW/264934-zwift-accelerates-mission-to-make-more-people-more-active-more-often-with-the-acquisition-of-rouvy/',
+        },
+        {
+          headline: 'Fit Fusion targets 30 Crunch clubs by end of 2026, nearly doubling its 16-club franchisee footprint',
+          tags: ['HVLP', 'GROWTH'],
+          context: 'Fit Fusion LLC, one of Crunch Fitness\u2019s top franchisees, announced plans to nearly double its footprint to 30 clubs by end of 2026. The franchisee currently operates 16 clubs across Chicago, Denver, Las Vegas, and Cleveland, with new locations planned in Nevada, Indiana, Illinois, Idaho, Colorado, and Florida. Growth strategy combines lease-driven expansion, strategic acquisitions, and partnerships with legacy operators. Founded just two years ago, Fit Fusion is now one of the largest Crunch franchisee groups in the country.',
+          implication: 'Crunch corporate is on the global key-account exclusion list, but franchisee operations make independent equipment decisions within Crunch brand standards. Reps in the six target states should clarify Fit Fusion\u2019s buying authority with their account team \u2014 sub-franchisee specification authority varies and the 14-club expansion creates a discrete procurement window over the next 12-18 months. Coordinate with corporate Crunch account before engaging.',
+          conversation: 'Fit Fusion is doubling its Crunch footprint in your territory. Franchisee buying authority within Crunch brand standards is non-trivial but Crunch corporate is centrally managed. Let me work with you on account team mapping so we know whether to engage Fit Fusion regional ops directly or stay coordinated with the corporate Crunch account \u2014 the answer determines whether this is callable.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/fit-fusion-targets-30-crunch-clubs-by-end-of-2026/',
+        },
+        {
+          headline: 'Bruce Edwards returns as CrossFit CEO May 4, signaling reset for the original competitive-fitness category amid Hyrox and ATHX market-share pressure',
+          tags: ['LEADERSHIP', 'COMPETITIVE'],
+          context: 'CrossFit announced April 29 that Bruce Edwards will assume the CEO role May 4, succeeding Don Faul who exited last month after four years. Edwards served as CrossFit COO from 2013 to 2019 and operated his own affiliate in Aptos, California. In his announcement, Edwards explicitly framed the work ahead as defending CrossFit\u2019s position against Hyrox and ATHX Games, which have taken meaningful share of the competitive-fitness category CrossFit originated. The note signals a likely affiliate-engagement and programming refresh cycle under new leadership.',
+          implication: 'Competitive fitness has moved from CrossFit-monopoly to a contested category, and full-service health clubs are responding by adding hybrid programming that blends strength, conditioning, and timed-event formats. Reps covering mid-premium and full-service operators should expect programming-driven equipment conversations \u2014 sled-enabled treadmills, ski ergs, air bikes, kettlebell stations \u2014 to surface earlier in capex cycles than in prior years. CrossFit\u2019s leadership reset is the leading indicator.',
+          conversation: 'Competitive fitness is no longer a CrossFit-only category, and clubs in your territory are seeing members ask for Hyrox-style programming, ATHX-style scoring, and sled-and-row hybrid formats. Let me help you map which mid-premium and full-service operators in your book are most likely to add these programming layers in 2026 \u2014 the equipment spec follows the programming decision, and the programming decision is happening now.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/bruce-edwards-returns-to-crossfit-in-ceo-role/',
+        },
+      ],
+      'hospitality': [
+        {
+          headline: 'Major US hotel chains converge on content-and-recovery partnerships as the standard amenity template, with Hyatt-Peloton at nearly 400 properties and Hilton-Hyperice Wellness Rooms expanding',
+          tags: ['BRAND', 'PARTNERSHIP'],
+          context: 'Athletech News (April 9) interviewed senior wellness leadership at Hyatt and Hilton on the brand-level amenity strategy now codifying across major US chains. Hyatt\u2019s Peloton partnership covers nearly 400 properties with World of Hyatt point-earning workouts and in-room content. Hilton operates Hyperice Wellness Rooms in the US, UK, and UAE alongside Peloton and Calm content partnerships. Hilton\u2019s global head of wellness Amanda Al-Masri described content-enabled equipment as scalable across property types because it delivers premium experience without expanding physical footprint. IHG has fully integrated health and fitness into its Even Hotel brand. Peninsula offers a 24-hour wellness concierge.',
+          implication: 'Hotel fitness amenity decisions are now made at the brand standard and global wellness team level, not at the property facilities engineering level. The chain-level template is converging on content-enabled equipment plus recovery-tool integration, with content partnerships (Peloton, Calm) bundled as default. Reps covering hospitality should engage brand standards and global wellness leadership during planning cycles, not property-level facilities. Equipment specs that do not integrate with the chain\u2019s named content partners face structural disadvantage.',
+          conversation: 'Hotel amenity decisions have moved from the property facilities team to brand standards and global wellness leadership, and the chain template now expects content partner integration as default. Let me help you identify the brand standards and global wellness contacts at your hospitality accounts so we are engaging at the altitude where the template gets written.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/hotels-evolve-priorities-partnerships-as-hospitality-demands-rise/',
+        },
+        {
+          headline: 'Hospitality Design 2026 outlook: hotel construction pipeline at 6,146 US projects with 1,295 opening in 2026',
+          tags: ['CAPEX', 'BRAND CFO'],
+          context: 'Lodging Econometrics data published in Hospitality Design\u2019s 2026 outlook puts the global hotel construction pipeline at 15,870 projects through Q4 2025, with the US accounting for 6,146 projects and 1,295 expected to open in 2026. US conversions and brand changes reached a record 2,118 at year-end 2025. Major sporting events including FIFA World Cup, F1 Las Vegas, Super Bowl LXI, and 2028 Olympics are shaping procurement timelines with immovable deadlines.',
+          implication: 'The 2026 hotel opening pipeline is the deepest in a decade, and major-event-driven deadlines compress procurement windows. Reps covering hospitality should pull their pipeline tracking against the 1,295 US openings and prioritize properties with FIFA World Cup, F1, or Olympic adjacency. Equipment specifications written in the next 90 days will be on-floor by Q3 2026.',
+          conversation: 'There are 1,295 US hotel openings landing in 2026, and the major-event-driven properties have non-negotiable deadlines. Let me help you cross-reference your renovation list with the FIFA, F1, and Olympic-adjacent properties \u2014 those are the deals where speed wins, and architectural specs are being locked right now.',
+          source: 'Hospitality Design',
+          sourceUrl: 'https://hospitalitydesign.com/projects/development-destinations/hotel-development-outlook-2026/',
+        },
+        {
+          headline: 'Luxury hospitality shifts toward membership-club integration, with branded social membership becoming a default amenity layer',
+          tags: ['BRAND', 'WELLNESS'],
+          context: 'Hospitality Design industry analysts report that membership-club integration is becoming the default model in new luxury hotel deals, with examples including the reopened Delano Miami Beach offering members-only spaces and Minor Hotels embedding membership clubs into nearly every new luxury project. The model bundles fitness, spa, dining, and social spaces under a single membership rather than treating fitness as an isolated amenity. Equinox Resort Amaala and similar wellness-led properties continue to set the design template.',
+          implication: 'Hotel fitness amenities are increasingly being designed as part of integrated wellness-membership offerings, not standalone gym rooms. This shifts equipment spec authority from facilities directors to brand standards teams and membership-product leads. Reps should engage the brand and member-experience teams during planning, not just the property-level facilities engineering teams.',
+          conversation: 'Hotel fitness specs are moving away from facilities engineering and toward brand and member-experience leadership. The integrated membership-club model means equipment is bundled into a member proposition. Let me help you identify the brand and member-experience contacts at your priority hospitality accounts so we engage at the right altitude.',
+          source: 'Hospitality Design',
+          sourceUrl: 'https://hospitalitydesign.com/projects/development-destinations/hotel-development-outlook-2026/',
+        },
+      ],
+      'multi-unit': [
+        {
+          headline: 'LyvWell at Harmony in Arlington, TX welcomes first residents \u2014 213-unit BTR community is the first build-to-rent property to achieve Fitwel Star Design certification',
+          tags: ['BTR', 'PROGRAMMING'],
+          context: 'LyvWell at Harmony in Arlington, TX welcomed its first residents in late April, opening 16 of a planned 213 build-to-rent townhomes designed around Fitwel-certified wellness standards. The community is the first BTR property to achieve Fitwel certification, with features including blackout shades, smart temperature controls, filtered water access, low-VOC materials, mindfulness areas, outdoor Zen zones, meditation areas, pickleball, and landscaped walking trails. CEO Mike Bednarski calls wellness \u201ca foundational component of housing, not an optional amenity.\u201d Construction continues through early 2027.',
+          implication: 'Fitwel certification is now a measurable BTR differentiator and a structural pricing factor, not just a marketing line. Reps covering BTR developers should expect Fitwel and WELL certification specifications to enter equipment RFPs alongside cardio and strength counts. Wellness-certified buildings command premium leasing positions.',
+          conversation: 'Fitwel and WELL certifications are crossing into BTR equipment RFPs as default expectations, not just marketing language. Let me help you build the talk track that connects equipment specifications to certification requirements \u2014 it changes the BTR conversation from \u201chow many treadmills\u201d to \u201chow does this support the building\u2019s wellness certification.\u201d',
+          source: 'MultifamilyBiz',
+          sourceUrl: 'https://www.multifamilybiz.com/pressreleases/18500/first_residents_move_into_213home_lyvwell_at_harmo',
+        },
+        {
+          headline: 'NAA \u201cWhat\u2019s Afoot in 2026\u201d signals the multifamily amenity arms race is shifting toward intentional spaces \u2014 meditation rooms, Zen Gardens, kosher kitchens, and curated wellness programming',
+          tags: ['PROGRAMMING', 'PORTFOLIO'],
+          context: 'The National Apartment Association\u2019s late-April \u201cWhat\u2019s Afoot in 2026\u201d feature highlights the shift from generic amenity packages toward intentional, curated spaces. M&R Development built a meditation room and Zen Garden at The Bluffs on Lake (St. Francis, WI). Baker Barrios Architects designed kosher kitchens for an Aventura, FL building targeting observant Jewish residents. The thesis: oversized clubrooms and minimalistic gyms are losing footprint to smaller, curated, identity-aligned amenities that drive measurable engagement and retention.',
+          implication: 'Multifamily fitness amenity specifications are increasingly being designed against demographic and identity-aligned use cases, not generic resident-base assumptions. Reps should expect property managers to ask for utilization data, programming hooks, and demographic-fit analysis, not just equipment lists. Equipment that supports specific identity-aligned programming will outcompete generic equipment in mid-to-large portfolio decisions.',
+          conversation: 'Multifamily amenity design is moving toward intentional, identity-aligned spaces. The conversation has shifted from \u201cwhat amenities\u201d to \u201cwho specifically uses them.\u201d Let me help you reframe your multifamily proposals around demographic fit and programming integration, not just equipment specifications \u2014 it\u2019s the language operators are using now.',
+          source: 'National Apartment Association',
+          sourceUrl: 'https://naahq.org/news/whats-afoot-2026',
+        },
+      ],
+      'campus-rec': [
+        {
+          headline: 'University of Wisconsin-Stout breaks ground April 30 on $31.7M Recreation Complex renovation, adding 39,000+ sq ft of student health, fitness, and wellbeing space',
+          tags: ['BOND-FUNDED', 'GROWTH'],
+          context: 'UW-Stout held a formal groundbreaking ceremony April 30 for a $31.7M Recreation Complex renovation, with campus leaders, alumni, legislators, and students in attendance. Chancellor Katherine Frank described the project as the result of student initiative combined with donor generosity. The 39,000+ sq ft of new and remodeled space supports student health, fitness, and wellbeing programming. The project anchors UW-Stout\u2019s Polytechnic Mission with student-success outcomes the explicit success metric.',
+          implication: 'Mid-sized polytechnic and regional public university recreation refreshes are continuing through the 2025-2027 capex cycle despite broader budget pressures. Reps covering Wisconsin, Minnesota, and Upper Midwest public universities should treat UW-Stout as a regional design and spec reference point. Student-funded recreation projects often follow a cluster pattern across regional peer institutions.',
+          conversation: 'UW-Stout is the leading indicator for Upper Midwest regional public universities planning similar refreshes. Let me help you map the peer institutions most likely to be planning their own student-funded recreation projects \u2014 we should be in front of them during the planning phase, not after RFPs are written.',
+          source: 'WEAU News',
+          sourceUrl: 'https://www.weau.com/2026/05/01/uw-stout-breaks-ground-317m-renovation-project-its-recreation-complex/',
+        },
+        {
+          headline: 'NIRSA 2026 Conference (April 7-10, National Harbor, MD) merges with IDEA\u00ae World, signaling formal convergence of campus recreation and commercial fitness industry events',
+          tags: ['EVENT', 'PROGRAMMING'],
+          context: 'The 2026 NIRSA + IDEA\u00ae World Conference & Expo took place April 7-10 at the Gaylord National Resort, National Harbor, MD \u2014 the first-ever joint conference between NIRSA (campus recreation) and IDEA Health & Fitness Association (commercial fitness). The collaboration was the result of over a year of intentional dialogue between leadership teams. NIRSA Outstanding Facilities Awards recognized projects including Indiana University\u2019s Northwest Recreation Courts, with IU Recreational Sports also winning a Creative Excellence Award for the SRSC rebrand. NIRSA also moved its venue from Aurora, CO to National Harbor in late 2025 to reduce member travel costs, signaling a budget-pressure-aware operating posture across the membership.',
+          implication: 'The NIRSA + IDEA merger is a structural shift: the campus rec industry and commercial fitness industry are now treating themselves as a shared market, with shared programming, shared exhibitors, and shared professional development. Reps covering Campus Recreation should reframe how they engage \u2014 the same buyers attending NIRSA are now exposed to commercial fitness category vendors and approaches. Plan exhibitor and content engagement at the joint event format going forward.',
+          conversation: 'NIRSA and IDEA World merging is a structural shift in how campus rec leaders evaluate equipment and programming partners. Let me help you map which campus rec directors in your territory attended this year \u2014 they are now exposed to a wider competitive set, and engagement during the post-conference 60-day decision window matters.',
+          source: 'IDEA Health & Fitness Association',
+          sourceUrl: 'https://www.ideafit.com/fitness-conferences/2026-idea-world/',
+        },
+        {
+          headline: 'Northwest Mississippi Community College cuts ribbon April 9 on $14M athletic performance facility, including dedicated sports medicine and training area for female student-athletes',
+          tags: ['GROWTH', 'DESIGN'],
+          context: 'Northwest Mississippi Community College in Senatobia held an April 9 ribbon-cutting on a new $14M athletic performance facility designed to serve its multi-program athletic department. The facility includes a covered turf practice field, a dedicated cheer and dance practice center for the college\u2019s 12-time national title programs, and a sports medicine and training area dedicated to female student-athletes. The investment is notable for a community college, signaling that institutional capex on athletic performance facilities is no longer concentrated only at four-year R1 universities.',
+          implication: 'Community-college athletic performance facility builds are an emerging procurement window adjacent to traditional Campus Recreation. The dedicated female-athlete sports medicine model is also a growing design pattern \u2014 reps covering Campus Recreation in the South and Midwest should expect peer community-college and small-college athletic departments to reference Northwest Mississippi when planning their own multi-program performance facility projects.',
+          conversation: 'Community colleges and smaller institutions are now writing checks for athletic performance facilities at scale. Let me help you map the regional community-college athletic directors most likely to be planning similar projects \u2014 the typical procurement cycle for these is much shorter than a four-year R1 facility build.',
+          source: 'Action News 5',
+          sourceUrl: 'https://www.actionnews5.com/2026/04/09/ribbon-cutting-new-14m-facility-northwest-mississippi-community-college/',
+        },
+      ],
+      'military': [
+        {
+          headline: 'Army hosts 2026 H2F Symposium May 13-14 in Hampton, VA, with industry partner exhibit hall and brigade-level decision makers in attendance',
+          tags: ['EVENT', 'PROGRAMMING'],
+          context: 'The 2026 Holistic Health and Fitness Symposium runs May 13-14 at the Hampton Roads Convention Center, hosted by the U.S. Army Center for Initial Military Training. The event features keynote speakers, the H2F awards presentation, breakout sessions, and an industry partner exhibit hall. H2F is the Army\u2019s comprehensive health and fitness system covering physical, mental, sleep, nutrition, and spiritual readiness, currently fielded across 66 brigades with 22-person performance teams (program director, dietitian, physical therapists, occupational therapists, seven strength and conditioning coaches, four athletic trainers, cognitive performance specialist, and military performance professionals). Independent USARIEM research found H2F would add 1,080 deployable Soldiers if rolled out Army-wide, with $8.15 in cost avoidance per dollar spent.',
+          implication: 'The H2F Symposium is the single concentrated annual touchpoint for Army brigade-level fitness decision makers, CIMT leadership, and the contracting and design partners who deliver SPRC and brigade fitness facility builds. BeaverFit dominates the SPRC equipment-and-facility integration role, but the brigade-level training and equipment refresh decisions are made by H2F program directors and strength and conditioning leads who will be on-site. Reps covering tactical and military performance should treat May 13-14 as the year\u2019s primary face-time window.',
+          conversation: 'The H2F Symposium May 13-14 is the year\u2019s concentrated touchpoint for Army brigade-level fitness leadership and SPRC contracting partners. Let me help you build the engagement plan \u2014 brigade-level S\u0026C coaches and program directors are the equipment-spec influencers, and they are all in one room for two days.',
+          source: 'Military Expos / U.S. Army',
+          sourceUrl: 'https://www.militaryexpos.com/h2f/',
+        },
+        {
+          headline: 'Fort Bliss 1st Armored Division Artillery formally recognizes H2F coaching staff April 24, signaling H2F is now operationally embedded at brigade level rather than a pilot program',
+          tags: ['PROGRAMMING', 'GROWTH'],
+          context: 'On April 24 at Fort Bliss, the 1st Armored Division Artillery (DIVARTY) command team presented Certificates of Appreciation to the DIVARTY H2F coaching staff in a formal recognition ceremony. The event is one of multiple late-April examples of brigade and division command teams formally recognizing their embedded H2F performance teams as essential unit assets. H2F has expanded from 28 brigades in fiscal 2021 to 66 brigades currently, with the remaining 53% of Army brigades scheduled to receive performance teams between fiscal 2028 and fiscal 2032. Guard and Reserve pilots launched in fiscal 2026.',
+          implication: 'H2F is past the pilot-program phase. Brigade and division commanders are formally recognizing H2F coaching teams as unit-essential, which materially changes how brigade leadership treats facility, equipment, and refresh-cycle conversations. Reps covering tactical and military performance should expect equipment refresh and supplemental purchasing decisions to be driven by H2F program directors and S\u0026C leads with command-level air cover, not by garrison facilities engineers acting in isolation.',
+          conversation: 'H2F has moved from pilot to operational reality at the brigade level, and command teams are reinforcing that with formal recognition. Let me help you identify the H2F program directors and lead S\u0026C coaches at brigades in your territory \u2014 those are the people whose specifications now influence equipment refresh decisions, with command backing.',
+          source: 'DVIDS / 1st Armored Division',
+          sourceUrl: 'https://www.dvidshub.net/image/9642351/empowering-force-h2f-coaches-recognized-excellence-soldier-readiness',
+        },
+        {
+          headline: 'FY2026 NDAA authorizes $18.893B for military construction and family housing, with new alternative-contracting authorities expanding speed-to-build options for fitness facility projects',
+          tags: ['CAPEX', 'AIA'],
+          context: 'The FY2026 National Defense Authorization Act, with House and Senate versions advancing in spring 2026, authorizes $18.893B in discretionary military construction (MILCON) and family housing funding (note: DoD now operates under secondary Department of War designation per Executive Order 14347, September 2025). Section 2802 authorizes Other Transactions (OT) for repair and construction of military infrastructure \u2014 exempt from many federal procurement laws. Section 2809 authorizes alternative project contracting methods including accelerated design-build and progressive design-build. Section 2814 authorizes multi-year procurement for certain MILCON projects. Army leadership has approved improvements to 67 H2F facilities this fiscal year, plus four SPRC-Experiment (SPRC-X) designs.',
+          implication: 'The FY2026 MILCON authority plus expanded OT and alternative-contracting authorities materially reshape the fitness facility procurement landscape on military installations. Traditional federal procurement timelines (12-24 months) compress significantly under OT and progressive design-build, which means fitness equipment specifications get locked earlier in the design phase and reps need to engage during schematic design rather than at the procurement RFP stage. Reps covering tactical and military performance should map the 67 H2F facility improvements scheduled this fiscal year against their territory and engage USACE district offices and BeaverFit (the dominant SPRC equipment partner) early.',
+          conversation: 'The FY2026 NDAA expands the contract vehicles available for military fitness facility builds, and the procurement window compresses meaningfully under OT authority. Let me help you identify the USACE district offices, H2F facility improvement projects, and BeaverFit-partnered SPRC builds in your territory \u2014 the spec-influence window is now schematic design, not RFP.',
+          source: 'EveryCRSReport / Congressional Research Service',
+          sourceUrl: 'https://www.everycrsreport.com/reports/R48899.html',
+        },
+      ],
+      'performance': [
+        {
+          headline: 'Cleveland Browns break ground April 30 on $2.7B Brook Park domed stadium and $1B surrounding mixed-use entertainment district',
+          tags: ['PRO SPORTS', 'AIA'],
+          context: 'The Cleveland Browns and Haslam Sports Group officially broke ground April 30 on the new domed Brook Park stadium, with NFL Commissioner Roger Goodell, Ohio Governor Mike DeWine, and Browns ownership in attendance. The Haslams committed approximately $1.755 billion of their own capital plus $845 million from the State of Ohio and the City of Brook Park, with stadium cost overruns covered by Haslam Sports Group. The $1B surrounding mixed-use entertainment district is positioned to attract A-list concerts, championship sports events, and potentially a future Super Bowl.',
+          implication: 'The Brook Park stadium plus surrounding district is the largest single-day NFL facility commitment of 2026 to date, opening multi-year procurement windows for player performance facilities, training centers, family fitness amenities, and surrounding-district fitness operators. Reps covering NFL strength and conditioning, training-facility design firms, and large mixed-use district fitness amenities should engage Haslam Sports Group leadership during the schematic and design-development phase.',
+          conversation: 'The Browns Brook Park project has the largest single-day capex commitment of 2026 to date and the entire surrounding district is open for fitness amenity procurement. Let me help you map the Haslam Sports Group facility and design leadership contacts so we engage during schematic design, not after equipment specs are locked.',
+          source: 'WKYC News',
+          sourceUrl: 'https://www.wkyc.com/article/sports/nfl/browns/cleveland-browns-new-stadium-break-ground-brook-park-timeline-how-did-we-get-here/95-089c7885-3a70-4a1c-9943-4733b0d9e9f4',
+        },
+        {
+          headline: 'Pittsburgh Steelers and Pirates begin new long-term lease talks following 2026 NFL Draft, with 30-year leases expiring 2030 and 2031',
+          tags: ['PRO SPORTS', 'CAPITAL'],
+          context: 'With the 2026 NFL Draft hosted in Pittsburgh April 23-25, the Steelers (Acrisure Stadium) and Pirates (PNC Park) face 30-year leases expiring in 2030 and 2031 respectively. State Senator Wayne Fontana confirmed talks underway between teams and the city/county for new long-term agreements that could include major stadium-improvement funding alongside community-benefit packages. Both stadiums were built for approximately $250M each in 2001; comparable new construction now costs $1.2-5B.',
+          implication: 'The Pittsburgh Steelers and Pirates lease negotiations open a multi-year facility refresh procurement window for player performance facilities, family fitness amenities, and stadium-tower fitness within both venues. Reps covering NFL and MLB facility leadership should treat 2026-2027 as the political-and-financing-decision phase, with procurement specifications likely locking in 2028-2029.',
+          conversation: 'The Steelers and Pirates are entering a multi-year lease and renovation negotiation. Equipment specs for player and staff fitness amenities will be locked during the renovation procurement phase. Let me help you align outreach to facility leadership at both organizations now while the political and financing conversations are still open.',
+          source: 'Pittsburgh\u2019s Public Source',
+          sourceUrl: 'https://www.publicsource.org/pittsburgh-new-stadiums-acrisure-pnc-park-steelers-pirates/',
+        },
+        {
+          headline: 'Athletics Las Vegas $2B ballpark hits major construction milestones, on-time and on-budget for 2028 opening',
+          tags: ['PRO SPORTS', 'AIA'],
+          context: 'The Oakland Athletics\u2019 new $2B Las Vegas ballpark hit major construction milestones in late April, with the steel-erection work begun March 4 now showing roof trusses installing and upper-deck framing underway. The project is on-time and on-budget for the planned 2028 opening, according to Las Vegas Review-Journal coverage on April 22. The Athletics will play 2026 and 2027 seasons in Sacramento before relocating to Las Vegas full-time.',
+          implication: 'The Athletics Las Vegas ballpark and surrounding entertainment-district capex represent a multi-year fitness amenity procurement window for player performance facilities, family fitness amenities, and surrounding-district fitness operators. Reps covering MLB strength and conditioning and adjacent commercial fitness opportunities should engage the A\u2019s facility leadership and surrounding hotel and entertainment ownership now.',
+          conversation: 'The A\u2019s Las Vegas ballpark is on-time for 2028 opening and the surrounding district is going to need fitness amenities at hospitality, multifamily, and player-facility scale. Let me help you map the procurement contacts at the A\u2019s and the adjacent hotel and entertainment ownership so we engage during design-development phase.',
+          source: 'Las Vegas Review-Journal',
+          sourceUrl: 'https://www.reviewjournal.com/sports/athletics/as-las-vegas-ballpark-construction-hitting-milestones-photos-3791458/',
+        },
+      ],
+    },
+    flags: [
+      { competitor: 'Precor / Peloton', priority: 'high', note: 'Peloton announced a global content partnership with Spotify on April 27 making 1,400+ instructor-led classes available to Premium subscribers across nine countries. Combined with the Commercial Series fall 2026 shipping window, Peloton is executing a content + commercial-hardware double-stack. Reps in active hospitality and corporate wellness deals should expect Peloton-aware procurement conversations through Q3 \u2014 the brand pull from Spotify exposure compounds with Precor distribution depth.' },
+      { competitor: 'Technogym', priority: 'high', note: 'TIME Magazine named Technogym one of the 100 Most Influential Companies in the World for 2026 on April 30. Combined with the multi-year Google Cloud generative-AI partnership announced April 14 at FIBO 2026, Technogym AI Coach (member experience) and Technogym AI Assistant (operator operations) continue to anchor the agentic AI rollout. The ecosystem story remains the most material competitive narrative of 2026 and continues to anchor Technogym\u2019s premium-segment positioning.' },
+      { competitor: 'EGYM', priority: 'high', note: 'Smart Strength Series 3 formally debuted at FIBO 2026 with EGYM positioning as the \u201coperating system\u201d for fitness \u2014 integrated machines, software, AI-driven longevity training, and Wellpass corporate fitness. Fitness First (Germany, 220 clubs) is rolling out EGYM Genius AI training solution after a successful pilot. Remains the dominant connected-equipment-bundle threat in mid-premium operator deals across both regions.' },
+      { competitor: 'Zwift', priority: 'medium', note: 'Acquired indoor cycling platform Rouvy on April 29 (including the FulGaz platform Rouvy previously acquired). Combines Zwift\u2019s gamified racing community with Rouvy\u2019s 1,800+ HD real-route content under one ecosystem. Indoor cycling category consolidation is now near-monopoly; relevant for hospitality and multifamily where digital cycling content is bundled into fitness amenities.' },
+      { competitor: 'Vision Fitness / Johnson Health Tech', priority: 'medium', note: 'The 60+ commercial product launches announced for 2026 are now reaching market \u2014 Summit Stairclimber, Access selectorized line, and Keystone plate-loaded line all shipping. Aggressive value-segment pricing positioned at independent health clubs, hospitality, and multifamily. Watch for Vision price-led pitches in mid-tier RFPs through Q3.' },
+      { competitor: 'Eleiko / Rogue / Cybex / Tonal / Tempo / Matrix', priority: 'low', note: 'No material announcements in the past 7 days. Matrix maintains commercial channel activity tied to broader Johnson Health Tech expansion (see Vision Fitness flag) and renewed International Luxury Hotel Association partnership for second year (April 8). Eleiko continues IWF brand reinforcement but no commercial channel moves disclosed. Tonal and Tempo continue commercial pivot post-consumer division reductions.' },
+    ],
+    metadata: { processed: '~70', delivered: 16, dedup: 'Week 18 vs Week 17 duplicate audit performed. Replaced 2 US Campus Rec items that repeated from Week 17 (MSU SRWC opening, U-M Hadley opening) with NIRSA + IDEA World Conference merger (April 7-10) and Northwest Mississippi CC athletic performance facility ribbon-cutting (April 9). Peloton/Precor Commercial Series and Technogym Google Cloud carry forward from Week 17 as competitive flags only. Net new content this week centered on the Spotify-Peloton content deal (April 27), Zwift-Rouvy acquisition (April 29), Cleveland Browns Brook Park groundbreaking (April 30), UW-Stout Recreation Complex groundbreaking (April 30), David Lloyd/Aspria deal close (April 23), and LyvWell at Harmony first residents (late April). Military / Tactical Performance vertical added Week 18: H2F Symposium (May 13-14), Fort Bliss DIVARTY H2F coaches recognition (April 24), and FY2026 NDAA / MILCON $18.893B authority. Recency cutoff applied: Apr 3, 2026 (30-day max). Insights older than 30 days removed and replaced with verified Week 18-window content.' },
+  },
   {
     id: 'w2026-17',
     issue: 'Issue №17 / 2026',
@@ -439,7 +632,6 @@ const BRIEFS_BY_REGION = {
         {
           headline: 'Michigan State opens $200M Student Recreation and Wellness Center — 293,000 sq ft, opened April 21',
           tags: ['BOND-FUNDED', 'GROWTH'],
-          outcome: 'won',
           context: 'Michigan State University officially opened its $200M Student Recreation and Wellness Center on April 21, 2026, replacing the 1959-built IM West facility. The 293,000 sq ft facility features multi-activity courts, indoor track, two basketball arenas, six multipurpose fitness studios, climbing wall, combat sports room, and a 50-meter pool. Funded through a student recreation fee instituted in 2021. IM West will close April 25; its pool remains open until spring 2027 while the new facility\u2019s natatorium completes.',
           implication: 'MSU is the largest campus rec opening of Q2 2026 and will set the comparative benchmark Big Ten peer institutions are measured against. Reps covering Big Ten schools should arrange MSU facility tours for their athletic directors and rec services leadership — peer site visits are how spec conversations escalate from interest to RFP. The opening also creates sustained referenceable case study content for marketing and proposals.',
           conversation: 'MSU just opened a $200M campus rec facility that\u2019s going to be the Big Ten reference point for the next decade. Your peer institutions are going to want to tour it. Let me help you organize that for your rec services director — getting them to walk the floor at MSU is the fastest path to spec-level conversations on your own campus.',
@@ -449,7 +641,6 @@ const BRIEFS_BY_REGION = {
         {
           headline: 'University of Michigan Hadley Family Recreation & Well-Being Center targets Spring 2026 opening — $165M, 3-year build',
           tags: ['BOND-FUNDED', 'DESIGN'],
-          outcome: 'won',
           context: 'University of Michigan\u2019s Hadley Family Recreation & Well-Being Center is finishing construction toward a Spring 2026 opening. The $165M facility replaces the demolished 401 Washtenaw Central Campus Recreation Building (closed December 2022). Project includes a $20M naming gift from the Hadley family. Temporary fabric-structure facility on Palmer Field has served students throughout construction. Big Ten campus rec capital cycle is mid-wave, with Hadley joining MSU and Pitt as marquee 2026 openings.',
           implication: 'Hadley\u2019s opening within weeks of MSU\u2019s creates a clustered Big Ten opening cycle that will dominate campus rec association discussions through 2026. Reps should monitor the NIRSA conference content calendar and association events — peer benchmarking conversations between Big Ten schools accelerate at these touchpoints. Kentucky Johnson Center expansion (60-foot climbing wall, outdoor lifting) finishes end of 2026, completing the cycle.',
           conversation: 'The Big Ten campus rec opening wave (MSU April, Michigan Hadley Spring, Pittsburgh recent, Kentucky end of year) creates clustered peer-benchmark moments at NIRSA and association events. Let me help you build the conversation arc around these openings so your rec services contacts position their next capex with that peer context in mind.',
@@ -657,6 +848,168 @@ const BRIEFS_BY_REGION = {
 // EMEA BRIEFS
 // =============================================================
 emea: [
+  {
+    id: 'w2026-18-emea',
+    issue: 'Issue \u2116\u202f18 / 2026 \u2014 EMEA',
+    weekRange: 'April 27 \u2013 May 3, 2026',
+    weekShort: 'Apr 27 \u2013 May 3',
+    stateOfPlay: [
+      'David Lloyd / Aspria acquisition officially closed April 23, expanding David Lloyd to 40 continental European clubs and reinforcing the European premium consolidation thesis.',
+      'Third Space opens its 15th club in Chelsea on May 1, with three more London clubs in development (Chelsea, Paternoster Square, Queens Park).',
+      'PureGym posts strong year-end 2025 results with CEO Clive Chesser flagging \u201cparticularly strong growth expected in the US market\u201d and a medium-term ambition of more than doubling the gym estate.',
+      'SIRO Boka Place (Montenegro), COMO Le Beauvallon (Saint-Tropez), and Zannier Hotels \u00cele de Bendor (off Bandol coast) all open within Week 18 \u2014 wellness-led luxury hospitality reaches new Mediterranean density.',
+    ],
+    oneBigIdea: {
+      headline: 'The David Lloyd / Aspria close is the explicit playbook for European premium consolidation. The 12-24 month window to engage premium independents on equipment refresh, before they get absorbed, defines the EMEA territory plan.',
+      body: 'David Lloyd Clubs (TDR Capital portfolio company) officially closed the Aspria acquisition on April 23, 2026, adding 10 continental clubs and 51,000 members across Germany, Belgium, Italy, and Spain. David Lloyd\u2019s continental footprint is now 40 clubs alongside its 109 UK clubs. Carlsquare\u2019s analysis (April 30) confirmed the structural pattern: at \u20ac200-\u20ac300 per month, European premium clubs are evolving into \u201cspend the day\u201d social-and-wellness hubs, and operating these formats consistently requires consolidation-grade scale. For EMEA reps, the implication is direct. Premium independents and small-chain operators in DACH, Iberia, Italy, and Benelux have a 12-24 month window before the next consolidation wave reaches them. Once a premium independent joins a TDR-Capital-backed platform, equipment decisions move to centralized procurement and the field-callable window closes. Engage now.',
+    },
+    trending: [
+      { topic: 'European premium consolidation accelerating with David Lloyd-Aspria close as defining transaction', weeks: 2, verticals: ['health-clubs'], sourceCount: 5, summary: 'David Lloyd / Aspria deal officially closed April 23. Carlsquare analyst confirms super-premium \u201cspend the day\u201d model at \u20ac200-\u20ac300/month as the consolidation driver. Third Space opens 15th club in London. PureGym targets US expansion. The window for engaging premium independents on equipment refresh is now measured in months, not years.' },
+      { topic: 'Wellness-led luxury hospitality reaches Mediterranean density with three openings in Week 18', weeks: 1, verticals: ['hospitality'], sourceCount: 4, summary: 'COMO Le Beauvallon (Saint-Tropez, opened April 24), SIRO Boka Place (Montenegro, Athletech feature May 1), and Zannier Hotels \u00cele de Bendor (off Bandol coast, opened May 1) all opened or featured within Week 18. The Mediterranean luxury wellness corridor is reaching critical density.' },
+      { topic: 'AI-ecosystem and content-platform competition becoming the strategic battleground', weeks: 3, verticals: ['health-clubs', 'hospitality'], sourceCount: 6, summary: 'Technogym/Google Cloud agentic AI announcement, EGYM Smart Strength Series 3 + Fitness First Germany Genius AI rollout (220 clubs), Matrix/seca medical AI alliance, plus the global Spotify-Peloton content deal (April 27, available in UK, Germany, Austria, Sweden, Spain) and Zwift-Rouvy acquisition (April 29). Operators face a platform-lock-in decision, not a hardware decision.' },
+    ],
+    verticals: {
+      'health-clubs': [
+        {
+          headline: 'David Lloyd Clubs officially closes Aspria acquisition (April 23) \u2014 40 continental clubs, 51,000 added members across Berlin, Hamburg, Brussels, Milan',
+          tags: ['PREMIUM', 'CAPITAL'],
+          context: 'David Lloyd Leisure (TDR Capital portfolio company) officially closed its acquisition of Aspria on April 23, 2026, with FTI Consulting, OC&C, EY, and Carlsquare advising on the transaction. The deal adds 10 super-premium clubs and approximately 51,000 members across Germany, Italy, Belgium, and Spain, plus an additional Brussels development site (Aspria Roosevelt) opening later in 2026. David Lloyd\u2019s continental footprint now stands at 40 clubs alongside 109 in the UK. Aspria membership has 72% retention and 7.5-year average tenure \u2014 metrics David Lloyd intends to scale.',
+          implication: 'The deal defines the European premium consolidation playbook: TDR-Capital-backed acquisitive scale absorbing super-premium independents in metropolitan markets. Reps should map the remaining premium independents in DACH, Iberia, Italy, and Benelux \u2014 those operators are the next wave of consolidation targets. Equipment refresh decisions made now stay with field reps. Decisions made post-acquisition route through centralized procurement.',
+          conversation: 'David Lloyd / Aspria is the playbook, not a one-off. The next premium-independent acquisitions are coming. Let me help you map the super-premium independents in your territory most likely to be acquired in the next 12-24 months \u2014 we need to be in front of them on equipment refresh now, not after the deal closes.',
+          source: 'FTI Consulting',
+          sourceUrl: 'https://www.fticonsulting.com/about/newsroom/press-releases/fti-consulting-advises-aspria-sale-david-lloyd-clubs',
+        },
+        {
+          headline: 'Third Space opens 15th club in Chelsea on May 1, expanding London premium footprint with three additional clubs in development',
+          tags: ['PREMIUM', 'GROWTH'],
+          context: 'Third Space, the London-based luxury operator, opens its 15th club today (May 1, 2026) off the King\u2019s Road in Chelsea. Three additional clubs are on-site (Chelsea, Paternoster Square, Queens Park) with major investment and extension projects underway at Soho and Islington locations. CEO Colin Waggett confirmed cold therapy rollout across the estate alongside new strength concepts. The brand previously launched The Whiteley (December 2025), described as Europe\u2019s largest luxury health club at 100,000 sq ft.',
+          implication: 'Third Space is the dominant London super-premium operator and continues to set the equipment and amenity benchmark for UK luxury fitness. The contrast-therapy, Hyrox, reformer, and Olympic-lifting integrated model is being replicated by emerging premium operators across Continental Europe. Reps covering UK premium and aspiring-premium independents should reference the Third Space model as the spec template clients will compare against.',
+          conversation: 'Third Space is the spec benchmark for UK premium and increasingly for Continental Europe. Cold therapy, Hyrox, reformer, and Olympic lifting integrated under one roof is now what aspirational premium operators want. Let me help you walk your customers through a Third Space-equivalent integrated spec so they don\u2019t get caught defending an outdated model.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/Third-Space-opens-doors-to-its-latest-high-end-club/362867',
+        },
+        {
+          headline: 'PureGym 2025 full-year results confirm strong growth, CEO targets \u201cmore than doubling\u201d gym estate with US expansion ambition',
+          tags: ['DISCOUNT', 'GROWTH'],
+          context: 'PureGym CEO Clive Chesser unveiled strong 2025 year-end results on April 28, with the company opening a record 60 gyms to end the year with 714 sites and 2.3 million members. Revenue increased 23% to \u00a3742M, and adjusted EBITDA improved 35% to \u00a3208.7M. Capital expenditure was \u00a3177M including \u00a376M on new gyms, \u00a311M on the Danish upgrade, and \u00a322M on US rebrand investment and bolt-on M&A. Chesser stated a medium-term ambition to more than double the size of the gym estate with \u201cparticularly strong growth expected in the US market\u201d following the Blink Fitness acquisition.',
+          implication: 'PureGym\u2019s announced US expansion ambition signals a structural shift: European discount-segment operators are now actively targeting US market entry alongside Basic-Fit\u2019s Barcelona European launch. EMEA reps covering PureGym should engage on the UK and European pipeline now, before US-specific specifications and procurement processes pull purchasing focus westward.',
+          conversation: 'PureGym is signaling more-than-double the estate plus material US expansion. The next 12 months is the moment to lock in EMEA equipment relationships before US procurement processes become the corporate priority. Let me help you sequence outreach to PureGym pipeline and operations leadership.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/PureGym-excited-about-US-opportunities-as-it-unveils-full-year-results/362860',
+        },
+        {
+          headline: 'Carlsquare analysis confirms European premium consolidation pattern: \u201cspend the day\u201d clubs at \u20ac200-\u20ac300/month requiring consolidation-grade scale',
+          tags: ['PREMIUM', 'CAPITAL'],
+          context: 'Carlsquare managing partner Arnold Holle, who advised on the David Lloyd / Aspria transaction, told Athletech News (April 30) that the European premium pattern is shifting decisively toward larger \u201cspend the day\u201d clubs at \u20ac200-\u20ac300 per month, where average member time on premises stretches to 90 minutes or longer. Operating these formats consistently requires consolidation-grade scale, which is contributing to accelerating M&A activity. The model already exists in the US luxury segment but is now codifying as the European premium template.',
+          implication: 'European premium club specifications are converging on a US-luxury-equivalent integrated model: spa, recovery, food and beverage, social spaces, and fitness floors of comparable depth. Reps covering European premium independents should engage now on amenity-expansion equipment refresh, before operators get absorbed into platforms with centralized procurement.',
+          conversation: 'European premium is converging on the US luxury integrated model: spa, recovery, F&B, social, fitness all under one roof. Independents that don\u2019t expand are absorption candidates. Let me help you map the premium independents most likely to either expand or be acquired in your territory \u2014 either way, the equipment conversation is now.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/europe-fitness-market-bigger-clubs-more-consolidation-carlsquare-expert/',
+        },
+      ],
+      'hospitality': [
+        {
+          headline: 'COMO Le Beauvallon opens April 24 in Saint-Tropez \u2014 Belle \u00c9poque Riviera estate restored under COMO wellness brand standards',
+          tags: ['WELLNESS', 'BRAND'],
+          context: 'COMO Hotels and Resorts opens Le Beauvallon on April 24, 2026 \u2014 a Belle \u00c9poque estate on the Gulf of Saint-Tropez restored as a premium Riviera resort under COMO\u2019s signature wellness and service standards. The property combines sea-facing rooms and suites with landscaped gardens and seaside access, blending Riviera elegance with COMO\u2019s wellness-first programming. The opening reinforces the broader luxury-wellness convergence pattern across Mediterranean and Riviera hospitality.',
+          implication: 'Mediterranean and Riviera luxury hotel renovations are increasingly being reimagined under wellness-led brand standards (COMO, Six Senses, Aman). Reps covering luxury European hospitality should map renovation pipelines specifically against wellness-brand-converted properties \u2014 those projects have higher fitness and recovery amenity specifications than pure leisure rebrands.',
+          conversation: 'Mediterranean luxury hotel renovations are increasingly converting under wellness-brand standards \u2014 COMO, Six Senses, Aman. The fitness and recovery specs run higher in those projects than in pure leisure rebrands. Let me help you build a target list of wellness-brand-converted projects in your territory.',
+          source: 'Hospitality Net',
+          sourceUrl: 'https://www.hospitalitynet.org/announcement/41014386/an-icon-restored-como-le-beauvallon-opens-on-the-french-riviera',
+        },
+        {
+          headline: 'SIRO Boka Place (Montenegro) emerges as the European fitness-led hospitality benchmark with 17,000+ sq ft Technogym Fitness Lab and dedicated Recovery Lab',
+          tags: ['WELLNESS', 'BRAND'],
+          context: 'Athletech News published a full review on May 1 of SIRO Boka Place, Kerzner International\u2019s second fitness-and-recovery hotel after SIRO One Za\u2019abeel Dubai. The Montenegro property combines a 17,000+ sq ft Technogym-outfitted Fitness Lab with a Recovery Lab offering cryo, red light, IV, vibroacoustic, compression therapy, and myofascial cupping. In-room amenities include yoga mats, foam rollers, blackout curtains, pillow menus, and a Swedish ladder. The hotel offers monthly memberships to Tivat residents. SIRO Brickell Miami is announced for 2030 as the brand\u2019s first US opening.',
+          implication: 'Wellness-led hotel brands are converging toward integrated fitness, recovery, nutrition, sleep, and outdoor programming. SIRO Boka Place sets a Mediterranean luxury benchmark that competing European hospitality operators will be compared against. Reps covering luxury European hospitality should expect spec conversations to expand beyond gym-and-spa into integrated recovery zone specifications and full-floor wellness footprints.',
+          conversation: 'SIRO is the spec benchmark for fitness-led luxury hospitality across Europe. Let me help you walk your luxury hotel customers through how their amenity spec compares to the SIRO integrated model \u2014 including the local-membership component, which most hotel ownership has not yet considered.',
+          source: 'Athletech News',
+          sourceUrl: 'https://athletechnews.com/siro-boka-place-wellness-hotel-montenegro-review/',
+        },
+        {
+          headline: 'Zannier Hotels \u00cele de Bendor opens May 1 \u2014 93-room private-island resort off Bandol coast positioning recovery and outdoor activity programming',
+          tags: ['WELLNESS', 'BRAND'],
+          context: 'Zannier Hotels opened \u00cele de Bendor on May 1, 2026, a 93-room private-island redevelopment off the Bandol coast of southern France. The property positions outdoor activity, recovery programming, and Mediterranean wellness alongside traditional resort amenities. The opening continues the Zannier brand\u2019s expansion into wellness-led private-island and remote-destination hospitality. Combined with the COMO Le Beauvallon and SIRO Boka Place openings within the same week, the European Mediterranean luxury wellness corridor reaches new density.',
+          implication: 'Private-island and remote-destination luxury hospitality openings continue to position fitness and recovery programming as core amenity expectations rather than supplementary services. Reps covering luxury European hospitality should expect smaller-property luxury ownership to ask increasingly sophisticated questions about recovery integration, in-room amenity packages, and outdoor activity programming linkages.',
+          conversation: 'Smaller-property luxury openings are now integrating recovery, outdoor activity, and wellness programming at a sophistication level that used to be reserved for flagship destinations. Let me help you build the talk track that connects equipment specifications to integrated outdoor and recovery programming \u2014 it changes the conversation from \u201chow many machines\u201d to \u201chow does this integrate with the property\u2019s wellness programming.\u201d',
+          source: 'Lightfoot Travel',
+          sourceUrl: 'https://www.lightfoottravel.com/travelbylightfoot/luxury-hotels-opening-in-2026',
+        },
+      ],
+      'multi-unit': [
+        {
+          headline: 'European multifamily and BTR amenity specifications converging on integrated wellness model as US Fitwel-certified BTR opens in Texas',
+          tags: ['BTR', 'PROGRAMMING'],
+          context: 'LyvWell at Harmony in Arlington, TX welcomed first residents in late April as the first BTR community to achieve Fitwel Star Design certification. Features include blackout shades, smart temperature controls, filtered water, low-VOC materials, mindfulness areas, outdoor Zen zones, and meditation areas. The Fitwel certification model is increasingly relevant for European BTR developers benchmarking residential wellness amenities against US peers \u2014 particularly in UK BTR, German student housing, and Continental European urban multifamily where wellness specifications are becoming standard.',
+          implication: 'Fitwel and WELL certification standards are crossing into European BTR and multifamily equipment RFPs as default expectations alongside cardio and strength counts. Reps covering EMEA BTR and PBSA (purpose-built student accommodation) should expect certification specifications to drive equipment selection, not just amenity selection. Wellness-certified buildings command premium leasing positions in both US and increasingly UK/EU markets.',
+          conversation: 'Fitwel and WELL certifications are crossing into UK and EU BTR equipment RFPs alongside amenity specifications. The first BTR community in the US just achieved Fitwel; expect EU developers to follow. Let me help you build the talk track that connects equipment specifications to certification requirements for your EMEA BTR developers.',
+          source: 'MultifamilyBiz',
+          sourceUrl: 'https://www.multifamilybiz.com/pressreleases/18500/first_residents_move_into_213home_lyvwell_at_harmo',
+        },
+        {
+          headline: 'European BTR and student housing wellness amenity expectations rising as fitness penetration normalizes',
+          tags: ['BTR', 'PROGRAMMING'],
+          context: 'European multifamily and BTR developers are increasingly integrating recovery, sauna, cold plunge, and meditation amenities alongside fitness equipment, mirroring the US trend. UK fitness market penetration reached approximately 18% in the latest UK Active and Deloitte report, with BTR developers benchmarking residential fitness amenity engagement against the broader market. Sun Belt-equivalent European metros and student housing pipelines are leading the shift.',
+          implication: 'European BTR and student housing fitness specifications increasingly require recovery and wellness integration alongside cardio and strength. Reps covering EMEA BTR and PBSA should treat full-spectrum wellness specifications as expected baseline, not differentiator. Equipment proposals that bundle recovery zone specifications win mid-tier BTR over pure-equipment proposals.',
+          conversation: 'European BTR is converging on the integrated wellness amenity model the same way US multifamily has. Specialty wellness has graduated to expected baseline. Let me help you reframe your EMEA multifamily proposals to bundle recovery zone specifications underneath fitness equipment, not alongside it.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/PureGym-excited-about-US-opportunities-as-it-unveils-full-year-results/362860',
+        },
+      ],
+      'performance': [
+        {
+          headline: 'FIBO 2026 in Cologne (April 16-19) wraps with 175,000+ visitors from 136 countries, sets the equipment-industry agenda for 2026',
+          tags: ['LEAGUE-LEVEL', 'CAPITAL'],
+          context: 'FIBO 2026 wrapped April 19 in Cologne with 175,000+ visitors from 136 countries and 1,000+ exhibitors from 54 countries. FIBO event director Silke Frank described the show as \u201cthe compass of the industry.\u201d Major announcements included Technogym\u2019s multi-year Google Cloud generative AI partnership, EGYM\u2019s Smart Strength Series 3 debut and London HQ at Paternoster Square, Peloton/Precor Commercial Series formal debut, and Vision Fitness 60+ commercial product launch plan. Topics on the conference agenda included healthy aging, glutes, dry cold plunging, and AI-driven training optimization.',
+          implication: 'FIBO 2026 cements the AI-ecosystem and connected-equipment competitive narrative for the rest of 2026. Reps covering EMEA performance and premium operators should expect post-FIBO procurement conversations to center on platform-readiness, AI-enabled equipment, and longevity/healthspan programming integration. The next 90 days are the highest-velocity sales window of 2026.',
+          conversation: 'FIBO is the compass for the industry and what got announced there sets the conversation for the rest of 2026. Let me help you build the post-FIBO talk track that translates the AI-ecosystem narrative into equipment specifications your customers can act on right now \u2014 the operators that buy in the next 90 days are the ones that win on platform-readiness.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/Healthy-ageing-glutes-and-dry-cold-plunging-feature-at-FIBO-2026/362827',
+        },
+        {
+          headline: 'Hyrox and Les Mills sign global partnership making Les Mills the Official Group Training Programme Partner of Hyrox \u2014 15,000+ affiliated gyms gain bespoke Les Mills programming',
+          tags: ['LEAGUE-LEVEL', 'S&C'],
+          context: 'Hyrox announced April 16 a global partnership with Les Mills, with Les Mills named Official Group Training Programme Partner of Hyrox. The partnership will bring bespoke Les Mills programming to Hyrox-affiliated facilities globally. Hyrox counts 15,000+ affiliated gyms worldwide, with hundreds of new training clubs adding affiliation each month. The partnership joins existing Hyrox relationships including Wodify (5,000 independent gym operators), Everlast Gyms (60 Performance Centers across UK and Ireland by 2028), PureGym, F45, Orangetheory, and Centr.',
+          implication: 'Hyrox affiliation continues to strengthen as a structural specification driver for performance and premium fitness facilities across UK and EMEA. The Les Mills partnership adds programming legitimacy to the Hyrox affiliation pathway. Reps covering performance and premium operators should expect Hyrox-readiness equipment specifications combined with Les Mills programming integration to enter UK and EMEA RFPs at increasing frequency.',
+          conversation: 'Hyrox affiliation plus Les Mills programming integration is now a defined product, not a wishlist. Let me help you build the Hyrox-ready spec sheet with Les Mills programming pathways included so we lead conversations with the affiliation-and-programming pathway, not just equipment lists.',
+          source: 'Health Club Management',
+          sourceUrl: 'https://www.healthclubmanagement.co.uk/health-club-management-news/Healthy-ageing-glutes-and-dry-cold-plunging-feature-at-FIBO-2026/362827',
+        },
+      ],
+      'campus-rec': [
+        {
+          headline: 'UK Sport accredits expanded network of Elite Training Centres April 24, with Loughborough, University of Bath (reaccredited), University of Wolverhampton, and others receiving designation',
+          tags: ['SPEC', 'DESIGN'],
+          context: 'UK Sport announced April 24 the accreditation of an expanded network of Elite Training Centres (ETCs) across UK higher education and partner institutions, supporting Olympic and Paralympic athlete development. Loughborough was reaccredited (Paris 2024 athletes earned 35 medals across multiple nations). University of Wolverhampton joined as one of only three UK higher-education institutions to receive ETC accreditation, recognized specifically for its Judo Centre. University of Bath was reaccredited based on the Sports Training Village, the London 2012 Legacy Pool, the Wheelchair Fencing National Training Centre, and the UK\u2019s only outdoor bobsleigh and skeleton push-start training track. ETCs are assessed against UK Sport\u2019s eight guiding principles including facilities and equipment, science and medicine, and partnerships.',
+          implication: 'The expanded UK Sport ETC network is a structural shift in how UK higher-education performance sport infrastructure is recognized and funded. ETC designation drives long-term partnership investment from UK Sport and National Governing Bodies, including facility and equipment refresh cycles. Reps covering EMEA Sport Science / Performance Education should treat the ETC list as a priority engagement map for 2026-2028 procurement conversations \u2014 reaccredited centres face periodic refresh cycles, and newly accredited centres typically commit to multi-year facility upgrades within 24 months of designation.',
+          conversation: 'The expanded UK Sport ETC network is the most important UK university performance sport story of the year. Let me help you map the newly accredited and reaccredited centres in your territory \u2014 ETC designation drives multi-year facility refresh cycles tied to UK Sport and NGB partnerships, and the post-accreditation procurement window is now open.',
+          source: 'UK Sport',
+          sourceUrl: 'https://www.uksport.gov.uk/news/2026/04/24/uk-sport-accredits-expanded-network-of-etcs',
+        },
+        {
+          headline: 'University of Nottingham continues integrated Life Fitness / Hammer Strength partnership at David Ross Sports Village, including official HYROX Training Club designation',
+          tags: ['SPEC', 'DESIGN'],
+          context: 'The University of Nottingham\u2019s integrated Life Fitness / Hammer Strength gym redesign at David Ross Sports Village continues to define the UK higher-education premium sports performance template. The integrated facility includes SYNRGY360 training area, WLinear training rig, Watt bikes, and Life Fitness cardio equipment connected via the LFconnect app. The University is an official HYROX Training Club delivering bespoke fitness classes incorporating the eight HYROX functional workout stations. Additional gym upgrades include connected music systems, LED lighting, and new mirrors.',
+          implication: 'The University of Nottingham integrated Life Fitness / Hammer Strength model is a UK higher-education spec reference point combining premium equipment, connected technology, and competition-format programming under one roof. Reps covering UK higher education should reference Nottingham specifications when engaging peer institutions evaluating similar integrated equipment-and-programming partnerships.',
+          conversation: 'The Nottingham integrated equipment-and-programming model combines Life Fitness, Hammer Strength, connected technology, and HYROX programming under one roof. Let me help you build the talk track that references Nottingham specifications when engaging UK universities evaluating similar partnerships \u2014 it gives the prospect a working reference point, not a hypothetical.',
+          source: 'University of Nottingham',
+          sourceUrl: 'https://www.nottingham.ac.uk/sport/bookings-and-timetables/gym.aspx',
+        },
+      ],
+    },
+    flags: [
+      { competitor: 'Technogym', priority: 'high', note: 'TIME Magazine named Technogym one of the 100 Most Influential Companies in the World for 2026 on April 30. Multi-year Google Cloud generative AI partnership announced April 14 at FIBO 2026 continues to anchor competitive positioning. Technogym AI Coach (member experience) and Technogym AI Assistant (operator operations) define the agentic AI rollout. Italian-headquartered with deepest premium-segment EMEA penetration. The most material competitive narrative of 2026 to date.' },
+      { competitor: 'EGYM', priority: 'high', note: 'Smart Strength Series 3 formally debuted at FIBO 2026 with EGYM positioning as the \u201coperating system\u201d for fitness \u2014 integrated machines, software, AI-driven longevity training, Wellpass corporate fitness extension. Fitness First (Germany, 220 clubs) is rolling out EGYM Genius AI training solution after a successful pilot. New London HQ at Paternoster Square reinforces UK and EMEA growth posture. German-headquartered with strongest DACH presence. Remains the dominant connected-equipment-bundle threat in mid-premium EMEA operator deals.' },
+      { competitor: 'Precor / Peloton', priority: 'high', note: 'Peloton announced a global content partnership with Spotify on April 27 making 1,400+ instructor-led classes available to Premium subscribers across nine countries including UK, Germany, Austria, Sweden, and Spain. Combined with the Commercial Series fall 2026 shipping window (launch markets including UK, Germany, Austria), Peloton is executing a content + commercial-hardware double-stack with material EMEA implications, particularly in hospitality and corporate wellness.' },
+      { competitor: 'Matrix Fitness', priority: 'medium', note: 'Renewed International Luxury Hotel Association partnership for second year (April 8). Continued visibility in UK higher-education refreshes and ONYX Collection adoption across premium hospitality (Four Seasons Hotel London at Tower Bridge most recent install). Matrix maintains commercial channel activity tied to broader Johnson Health Tech expansion (see Vision Fitness flag).' },
+      { competitor: 'Vision Fitness / Johnson Health Tech', priority: 'medium', note: 'The 60+ commercial product launches announced for 2026 are now reaching market \u2014 Summit Stairclimber, Access selectorized line, and Keystone plate-loaded line all shipping. Aggressive value-segment pricing positioned at independent health clubs, hospitality, and multifamily across EMEA mid-tier deals.' },
+      { competitor: 'Panatta', priority: 'medium', note: 'Italian strength manufacturer with strong DACH and Iberia presence, particularly in independent gym and bodybuilding-focused operators. Track for performance and strength-focused opportunities in southern Europe.' },
+      { competitor: 'gym80', priority: 'medium', note: 'German strength manufacturer based in Gelsenkirchen. Dominant in DACH performance segment, strong relationships with German football clubs and Olympic federations. Track for any DACH performance opportunity.' },
+      { competitor: 'Zwift', priority: 'low', note: 'Acquired indoor cycling platform Rouvy on April 29 (including the FulGaz platform Rouvy previously acquired). Combines Zwift\u2019s gamified racing community with Rouvy\u2019s 1,800+ HD real-route content. Indoor cycling category consolidation; relevant for EMEA hospitality and BTR where digital cycling content is increasingly bundled into fitness amenities.' },
+      { competitor: 'Eleiko / Cybex / Tonal / Tempo / Rogue', priority: 'low', note: 'No material EMEA-specific announcements in past 7 days. Tonal and Tempo have limited EMEA distribution depth. Eleiko continues IWF brand reinforcement, particularly in Olympic federation and elite training settings, but no material commercial channel moves disclosed. Cybex and Rogue without disclosed EMEA strategic moves.' },
+    ],
+    metadata: { processed: '~55', delivered: 13, dedup: 'Week 18 vs Week 17 duplicate audit performed. Replaced University of Bath \u201cSport University of the Year 2026\u201d (repeated from Week 17) with UK Sport Elite Training Centre expanded network accreditation (April 24, covering Loughborough, Bath reaccreditation, Wolverhampton, and others). David Lloyd / Aspria deal continues from Week 17 trending pattern but the official close (April 23) is the new material event. Technogym Google Cloud AI partnership, EGYM Smart Strength Series 3, and FIBO 2026 carry forward as competitive flags only. Net new content centered on Aspria close, Third Space Chelsea opening, PureGym US expansion ambition, COMO Le Beauvallon opening (April 24), SIRO Boka Place feature (May 1), Zannier Hotels \u00cele de Bendor opening (May 1), and Hyrox/Les Mills global partnership. Recency cutoff applied: Apr 3, 2026 (30-day max). Insights older than 30 days removed and replaced with verified Week 18-window content.' },
+  },
   {
     id: 'w2026-17-emea',
     issue: 'Issue № 17 / 2026 — EMEA',
@@ -985,42 +1338,18 @@ function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, on
   const isBookmarked = !!bookmarked;
   const ratingValue = rating || null;
 
-  // V2 win/pursuit ribbon flagging
-  const outcome = insight.outcome; // 'won' | 'pursuit' | undefined
-  const isFlagged = outcome === 'won' || outcome === 'pursuit';
-  const isWin = outcome === 'won';
-  const flagColor = isWin ? '#C41230' : '#1F7A4D';
-  const flagLabel = isWin ? 'LF/HS WIN' : 'LF/HS IN-PURSUIT';
-  const FlagIcon = isWin ? Trophy : ArrowRight;
-
   return (
     <div className="tile-outer" onClick={() => setFlipped(f => !f)}>
       <div className="tile-inner" style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
         {/* FRONT */}
-        <div className={`tile-face tile-front${isFlagged ? (isWin ? ' tile-flagged tile-flagged-win' : ' tile-flagged tile-flagged-pursuit') : ''}`} style={{
-          background: C.surface,
-          border: isFlagged ? `1.5px solid ${flagColor}` : `1px solid ${C.border}`,
-          borderTop: isFlagged ? `1.5px solid ${flagColor}` : `3px solid ${C.red}`,
-          borderRadius: 8,
-          padding: isFlagged ? '50px 18px 14px' : '16px 18px 14px',
+        <div className="tile-face tile-front" style={{
+          background: C.surface, border: `1px solid ${C.border}`,
+          borderTop: `3px solid ${C.red}`, borderRadius: 8,
+          padding: '16px 18px 14px',
           display: 'flex', flexDirection: 'column', gap: 10,
           boxShadow: '0 1px 2px rgba(20,21,26,0.04)',
         }}>
-          {/* WIN/PURSUIT RIBBON — only renders when outcome is set */}
-          {isFlagged && (
-            <div className="tile-ribbon" aria-label={flagLabel}>
-              <span className="tile-ribbon-label">
-                <FlagIcon size={14} strokeWidth={2.5} />
-                {flagLabel}
-              </span>
-              <div className="tile-ribbon-tags">
-                {insight.tags.map((t, i) => (
-                  <span key={i} className="tile-ribbon-tag">{t}</span>
-                ))}
-              </div>
-            </div>
-          )}
-          <div className="tile-tags-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', flex: 1 }}>
               {weekBadge && (
                 <span style={{
@@ -1051,7 +1380,6 @@ function InsightTile({ insight, insightIdStr, bookmarked, rating, onBookmark, on
           <h3 className="tile-headline" style={{
             margin: 0, fontSize: 15.5, lineHeight: 1.35, fontWeight: 700,
             color: C.ink, letterSpacing: '-0.005em',
-            paddingRight: 36,
           }}>{insight.headline}</h3>
           <p className="tile-context" style={{
             margin: 0, fontSize: 12.5, lineHeight: 1.55, color: C.inkBody,
@@ -1441,136 +1769,6 @@ function IntelBrief() {
           .tile-outer, .tile-inner, .tile-face { height: auto !important; min-height: 0 !important; overflow: visible !important; }
           .tile-context { -webkit-line-clamp: unset; display: block; }
           .tile-back-clamp { -webkit-line-clamp: unset; display: block; }
-        }
-
-        /* ============================================================
-           V2 WIN/PURSUIT RIBBON — flagged tiles get a 42px gradient ribbon
-           at the top with the LF/HS WIN or LF/HS IN-PURSUIT label and tags.
-           At desktop the ribbon holds tags inline; at mobile (<= 900px)
-           tags fall back to the standard tag-row beneath the ribbon.
-           ============================================================ */
-        .tile-flagged {
-          position: relative;
-          overflow: hidden; /* clip the ribbon's rounded corners cleanly */
-        }
-        .tile-ribbon {
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 42px;
-          /* Top corners rounded to match card border-radius (8px) minus the 1.5px border */
-          border-top-left-radius: 6.5px;
-          border-top-right-radius: 6.5px;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          padding: 0 14px;
-          gap: 10px;
-          overflow: hidden; /* safety net in case content tries to spill */
-        }
-        .tile-flagged-win .tile-ribbon {
-          /* Edge color matches the red border (#C41230) so the ribbon merges into the card outline.
-             Antique gold (#D4A93C / #E8C547) at the center for a subtle celebratory shimmer. */
-          background: linear-gradient(90deg,
-            #C41230 0%, #C41230 12%, #B11529 22%,
-            #D4A93C 42%, #E8C547 50%, #D4A93C 58%,
-            #B11529 78%, #C41230 88%, #C41230 100%);
-          background-size: 200% 100%;
-          animation: tile-ribbon-shimmer 8s ease-in-out infinite;
-        }
-        .tile-flagged-pursuit .tile-ribbon {
-          background: linear-gradient(90deg,
-            #1F7A4D 0%, #1F7A4D 12%, #155633 22%,
-            #5DA17B 42%, #7FBE9A 50%, #5DA17B 58%,
-            #155633 78%, #1F7A4D 88%, #1F7A4D 100%);
-          background-size: 200% 100%;
-          animation: tile-ribbon-shimmer 8s ease-in-out infinite;
-        }
-        @keyframes tile-ribbon-shimmer {
-          0%   { background-position: 30% 0; }
-          50%  { background-position: 70% 0; }
-          100% { background-position: 30% 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .tile-flagged-win .tile-ribbon,
-          .tile-flagged-pursuit .tile-ribbon {
-            animation: none;
-            background-position: 50% 0;
-          }
-        }
-        .tile-ribbon-label {
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.16em;
-          color: white;
-          text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-          white-space: nowrap;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          flex-shrink: 0;
-        }
-        .tile-ribbon-label svg {
-          filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
-        }
-        .tile-ribbon-tags {
-          display: flex;
-          gap: 6px;
-          margin-left: auto;
-          align-items: center;
-          min-width: 0; /* allow shrink */
-          overflow: hidden;
-        }
-        .tile-ribbon-tag {
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          padding: 3px 7px;
-          border-radius: 3px;
-          background: rgba(255,255,255,0.92);
-          border: 1px solid rgba(255,255,255,0.4);
-          white-space: nowrap;
-          flex-shrink: 0;
-        }
-        .tile-flagged-win .tile-ribbon-tag { color: #8E0E22; }
-        .tile-flagged-pursuit .tile-ribbon-tag { color: #155633; }
-
-        /* On flagged tiles at desktop:
-           - Tags are inside the ribbon, so the inner div with tags is hidden
-           - The tags-row container is positioned absolutely so it doesn't take
-             vertical layout space (this kills the empty gap between ribbon and headline).
-             Only the bookmark button remains, anchored to top-right just below the ribbon.
-           !important is needed because the JSX uses inline styles. */
-        .tile-flagged .tile-tags-row > div:first-child { display: none !important; }
-        .tile-flagged .tile-tags-row {
-          position: absolute !important;
-          top: 50px;
-          right: 14px;
-          width: auto !important;
-          margin: 0 !important;
-          gap: 0 !important;
-          z-index: 3;
-        }
-
-        /* Mobile fallback at <= 900px: drop tags out of ribbon, restore tags-row to normal flow.
-           Aligns with the existing 1-column grid breakpoint. */
-        @media (max-width: 900px) {
-          .tile-ribbon-tags { display: none; }
-          .tile-flagged .tile-tags-row {
-            position: static !important;
-            top: auto;
-            right: auto;
-            width: auto !important;
-            justify-content: space-between !important;
-            margin: 0 !important;
-            gap: 8px !important;
-          }
-          .tile-flagged .tile-tags-row > div:first-child { display: flex !important; }
-          /* Tinted tag-row tags so they still read as "celebratory" at mobile */
-          .tile-flagged-win .tile-tags-row .tag,
-          .tile-flagged-pursuit .tile-tags-row .tag {
-            border-color: transparent;
-          }
         }
 
         /* Tile shell — content-driven height with same-row equalization via CSS Grid.
@@ -2209,6 +2407,7 @@ function IntelBrief() {
     </div>
   );
 }
+
 
 
 const rootEl = document.getElementById('root');
